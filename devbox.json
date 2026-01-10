@@ -1,0 +1,46 @@
+{
+  "packages": [
+    "jetbrains.jdk-no-jcef@latest",
+    "jetbrains.idea-ultimate@latest",
+    "mysql84@latest",
+    "php@latest",
+    "bruno@2.12.0"
+  ],
+  "shell": {
+    "init_hook": [
+      "if [ ! -f .env ]; then cp .env.example .env; fi",
+      "if grep -q '<.*>' .env; then echo -e \"\\033[31mPlease replace all placeholders from .env and enter the devbox shell again\\033[0m\"; fi",
+      "export $(grep -v '^#' .env | sed 's/#.*//' | xargs -I {} echo export '{}')"
+    ],
+    "scripts": {
+      "idea": [
+        "nohup idea-ultimate >/dev/null 2>&1 &"
+      ],
+      "bruno": [
+        "nohup bruno >/dev/null 2>&1 &"
+      ],
+      "adminer:run": [
+        "nohup php -S localhost:8081 database-utils/adminer.php >/dev/null 2>&1 &"
+      ],
+      "adminer:kill": [
+        "pkill -f 'php -S localhost:8081 database-utils/adminer.php'"
+      ],
+      "db:run": [
+        "devbox services start mysql"
+      ],
+      "db:kill": [
+        "devbox services down"
+      ],
+      "db:setup": [
+        "export $(grep -v '^#' .env | sed 's/#.*//' | xargs -I {} echo export '{}')",
+        "bash -c \"sed -e 's|<DB_PASS>|${DB_PASS}|g' -e 's|<DB_USER>|${DB_USER}|g' -e 's|<DB_NAME>|${DB_NAME}|g' database-utils/setup.sql | mysql -u root\""
+      ],
+      "db:connect": [
+        "mysql -u $DB_USER --password=\"$DB_PASS\" -D $DB_NAME"
+      ],
+      "db:root": [
+        "mysql -u root"
+      ]
+    }
+  }
+}
