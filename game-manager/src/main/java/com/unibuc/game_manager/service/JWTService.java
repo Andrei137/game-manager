@@ -2,7 +2,6 @@ package com.unibuc.game_manager.service;
 
 import com.unibuc.game_manager.exception.UnauthorizedException;
 import com.unibuc.game_manager.model.Provider;
-import com.unibuc.game_manager.model.ProviderStatus;
 import com.unibuc.game_manager.model.User;
 import com.unibuc.game_manager.repository.UserRepository;
 import io.jsonwebtoken.Jwts;

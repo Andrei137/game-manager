@@ -7,4 +7,4 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
 @AllArgsConstructor
-public final class PublisherDto extends ProviderDto { }
+public final class PublisherDto extends ProviderCreateDto { }

@@ -1,9 +1,9 @@
 package com.unibuc.game_manager.controller;
 
 import com.unibuc.game_manager.dto.*;
+import com.unibuc.game_manager.model.Customer;
 import com.unibuc.game_manager.model.Developer;
 import com.unibuc.game_manager.model.Publisher;
-import com.unibuc.game_manager.model.User;
 import com.unibuc.game_manager.service.AuthService;
 import com.unibuc.game_manager.utils.*;
 import jakarta.validation.Valid;
@@ -27,7 +27,7 @@ public class AuthController {
 
     @PostMapping("/signup")
     @ResponseBody
-    public ResponseEntity<User> signupClient(
+    public ResponseEntity<Customer> signupClient(
             @RequestBody @Valid @Validated(ValidationUtils.Create.class) CustomerDto customerDto
     ) {
         return ResponseUtils.created(authService.signupCustomer(customerDto));

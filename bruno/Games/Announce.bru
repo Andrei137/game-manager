@@ -1,18 +1,19 @@
 meta {
-  name: Approve
+  name: Announce
   type: http
   seq: 2
 }
 
-put {
-  url: {{url}}/{{endpoint}}/3
+post {
+  url: {{url}}/{{endpoint}}
   body: json
   auth: inherit
 }
 
 body:json {
   {
-    "status": "approved"
+    "title": "Hollow Knight",
+    "price": 12.99
   }
 }
 

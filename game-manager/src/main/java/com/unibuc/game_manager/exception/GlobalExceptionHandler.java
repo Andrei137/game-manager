@@ -26,8 +26,13 @@ public final class GlobalExceptionHandler {
                 .getBindingResult()
                 .getFieldErrors()
                 .forEach(error -> errorsList.add(error.getDefaultMessage()));
-
-        return ResponseUtils.badRequest(errorsList);
+        Object responseBody;
+        if (errorsList.size() == 1) {
+            responseBody = errorsList.get(0);
+        } else {
+            responseBody = errorsList;
+        }
+        return ResponseUtils.badRequest(responseBody);
     }
 
     @ExceptionHandler(SQLIntegrityConstraintViolationException.class)

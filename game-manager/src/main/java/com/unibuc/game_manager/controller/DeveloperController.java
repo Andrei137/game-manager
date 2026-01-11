@@ -4,8 +4,11 @@ import com.unibuc.game_manager.dto.DeveloperDto;
 import com.unibuc.game_manager.model.Developer;
 import com.unibuc.game_manager.service.DeveloperService;
 import com.unibuc.game_manager.service.ProviderService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -19,4 +22,5 @@ public class DeveloperController extends ProviderController<Developer, Developer
     public ProviderService<Developer, DeveloperDto> getService() {
         return developerService;
     }
+
 }

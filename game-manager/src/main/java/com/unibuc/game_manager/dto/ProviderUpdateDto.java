@@ -1,0 +1,22 @@
+package com.unibuc.game_manager.dto;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public final class ProviderUpdateDto {
+
+    @NotBlank(message = "status is required")
+    @Pattern(
+            regexp = "APPROVED|REJECTED|BANNED",
+            flags = Pattern.Flag.CASE_INSENSITIVE,
+            message = "status must be one of APPROVED, REJECTED, BANNED"
+    )
+    private String status;
+
+}

@@ -26,10 +26,10 @@ public class CustomerController {
         return ResponseUtils.ok(customerService.getAllUsers());
     }
 
-    @GetMapping("/{customerId}")
+    @GetMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<Customer> getCustomer(@PathVariable Integer customerId) {
-        return ResponseUtils.ok(customerService.getUserById(customerId));
+    public ResponseEntity<Customer> getCustomer(@PathVariable Integer id) {
+        return ResponseUtils.ok(customerService.getUserById(id));
     }
 
     @GetMapping("/me")

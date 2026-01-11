@@ -1,7 +1,7 @@
 package com.unibuc.game_manager.mapper;
 
 import com.unibuc.game_manager.dto.PublisherDto;
-import com.unibuc.game_manager.model.ProviderStatus;
+import com.unibuc.game_manager.model.Provider;
 import com.unibuc.game_manager.model.Publisher;
 import com.unibuc.game_manager.service.JWTService;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ public final class PublisherMapper extends ProviderMapper<Publisher, PublisherDt
                 .password(JWTService.encryptPassword(dto.getPassword()))
                 .email(dto.getEmail())
                 .website(dto.getWebsite())
-                .status(ProviderStatus.PENDING)
+                .status(Provider.Status.PENDING)
                 .build();
     }
 

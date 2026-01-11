@@ -9,7 +9,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class ProviderDto extends UserDto {
+public abstract class ProviderCreateDto extends UserDto {
 
     @Pattern(
             regexp = "^(https?://)?([\\w-]+\\.)+[\\w-]{2,}(/\\S*)?$",
