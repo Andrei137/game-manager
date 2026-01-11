@@ -81,6 +81,54 @@
         }
       }
     },
+    "jetbrains.datagrip@2025.3.2": {
+      "last_modified": "2025-12-31T03:27:36Z",
+      "resolved": "github:NixOS/nixpkgs/f665af0cdb70ed27e1bd8f9fdfecaf451260fc55#jetbrains.datagrip",
+      "source": "devbox-search",
+      "version": "2025.3.2",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/0cgvwbxcg0bsjwwa2nq8vplmx7d61393-datagrip-2025.3.2",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/0cgvwbxcg0bsjwwa2nq8vplmx7d61393-datagrip-2025.3.2"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/1pzn3c37am0cv33c5396mn3psvjwwzxb-datagrip-2025.3.2",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/1pzn3c37am0cv33c5396mn3psvjwwzxb-datagrip-2025.3.2"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/pbhxc5dwsgrnh44p44c8inhj4lxrjpcw-datagrip-2025.3.2",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/pbhxc5dwsgrnh44p44c8inhj4lxrjpcw-datagrip-2025.3.2"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/sh3647aldg1cdqpwfylv070b71zlxinw-datagrip-2025.3.2",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/sh3647aldg1cdqpwfylv070b71zlxinw-datagrip-2025.3.2"
+        }
+      }
+    },
     "jetbrains.idea-ultimate@latest": {
       "last_modified": "2025-12-15T04:22:15Z",
       "resolved": "github:NixOS/nixpkgs/09b8fda8959d761445f12b55f380d90375a1d6bb#jetbrains.idea-ultimate",
@@ -165,6 +213,54 @@
         }
       }
     },
+    "maven@latest": {
+      "last_modified": "2025-12-31T03:27:36Z",
+      "resolved": "github:NixOS/nixpkgs/f665af0cdb70ed27e1bd8f9fdfecaf451260fc55#maven",
+      "source": "devbox-search",
+      "version": "3.9.12",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/z706acy67c98mfvqhhbqcca6kx3fmqgi-maven-3.9.12",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/z706acy67c98mfvqhhbqcca6kx3fmqgi-maven-3.9.12"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/7nq9881fn9ilqz2sgihkg2lwm9hwbwln-maven-3.9.12",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/7nq9881fn9ilqz2sgihkg2lwm9hwbwln-maven-3.9.12"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/rm6n9hkfw22nczsc482wwiyw4mi5fxf1-maven-3.9.12",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/rm6n9hkfw22nczsc482wwiyw4mi5fxf1-maven-3.9.12"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/8d2k4qnn4gn7gkmx516j11xgj3insf8f-maven-3.9.12",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/8d2k4qnn4gn7gkmx516j11xgj3insf8f-maven-3.9.12"
+        }
+      }
+    },
     "mysql84@latest": {
       "last_modified": "2025-12-31T03:27:36Z",
       "plugin_version": "0.0.4",
@@ -230,52 +326,51 @@
         }
       }
     },
-    "php@latest": {
+    "nodemon@3.1.11": {
       "last_modified": "2025-12-31T03:27:36Z",
-      "plugin_version": "0.0.3",
-      "resolved": "github:NixOS/nixpkgs/f665af0cdb70ed27e1bd8f9fdfecaf451260fc55#php",
+      "resolved": "github:NixOS/nixpkgs/f665af0cdb70ed27e1bd8f9fdfecaf451260fc55#nodemon",
       "source": "devbox-search",
-      "version": "8.4.16",
+      "version": "3.1.11",
       "systems": {
         "aarch64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/vcc1qgjma41h0gxsjjajiz1zgk3x7azf-php-with-extensions-8.4.16",
+              "path": "/nix/store/wspnn1mklzv0r2943h4pvsgicyiqcabd-nodemon-3.1.11",
               "default": true
             }
           ],
-          "store_path": "/nix/store/vcc1qgjma41h0gxsjjajiz1zgk3x7azf-php-with-extensions-8.4.16"
+          "store_path": "/nix/store/wspnn1mklzv0r2943h4pvsgicyiqcabd-nodemon-3.1.11"
         },
         "aarch64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/3bv66a3i6ccpmcxvs5in0vxkwfsj5nlr-php-with-extensions-8.4.16",
+              "path": "/nix/store/f38cvfz6scasldnb4pp5qcm8w61zcdch-nodemon-3.1.11",
               "default": true
             }
           ],
-          "store_path": "/nix/store/3bv66a3i6ccpmcxvs5in0vxkwfsj5nlr-php-with-extensions-8.4.16"
+          "store_path": "/nix/store/f38cvfz6scasldnb4pp5qcm8w61zcdch-nodemon-3.1.11"
         },
         "x86_64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/f8p067vigk85q5hfxwzq4nymzdvjljy0-php-with-extensions-8.4.16",
+              "path": "/nix/store/r5af3sw7vv8p4ckjk1g7aq68lb50w83s-nodemon-3.1.11",
               "default": true
             }
           ],
-          "store_path": "/nix/store/f8p067vigk85q5hfxwzq4nymzdvjljy0-php-with-extensions-8.4.16"
+          "store_path": "/nix/store/r5af3sw7vv8p4ckjk1g7aq68lb50w83s-nodemon-3.1.11"
         },
         "x86_64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/zc1v3c5sqbm9kazc0h9rzp17w4ihw2ih-php-with-extensions-8.4.16",
+              "path": "/nix/store/9jpcfc82qqdskqlqcy9dsxwxm85hjw8h-nodemon-3.1.11",
               "default": true
             }
           ],
-          "store_path": "/nix/store/zc1v3c5sqbm9kazc0h9rzp17w4ihw2ih-php-with-extensions-8.4.16"
+          "store_path": "/nix/store/9jpcfc82qqdskqlqcy9dsxwxm85hjw8h-nodemon-3.1.11"
         }
       }
     }

@@ -1,0 +1,15 @@
+meta {
+  name: Unban
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{url}}/{{endpoint}}/3/unban
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}

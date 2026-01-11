@@ -33,6 +33,8 @@ replay_pid*
 .devbox/
 devbox.d/
 
+todo.txt
+
 # Env 
 .env
 

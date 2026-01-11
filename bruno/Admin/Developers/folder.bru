@@ -1,0 +1,16 @@
+meta {
+  name: Developers
+  seq: 1
+}
+
+headers {
+  Authorization: Bearer {{validAdminJWT}}
+}
+
+auth {
+  mode: inherit
+}
+
+vars:pre-request {
+  endpoint: admin/developers
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Approve
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{url}}/{{endpoint}}/5/approve
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}

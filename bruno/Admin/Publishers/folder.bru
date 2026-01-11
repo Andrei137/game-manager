@@ -1,0 +1,16 @@
+meta {
+  name: Publishers
+  seq: 2
+}
+
+headers {
+  Authorization: Bearer {{validAdminJWT}}
+}
+
+auth {
+  mode: inherit
+}
+
+vars:pre-request {
+  endpoint: admin/publishers
+}

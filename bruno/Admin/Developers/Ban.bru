@@ -1,0 +1,15 @@
+meta {
+  name: Ban
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{url}}/{{endpoint}}/3/ban
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}

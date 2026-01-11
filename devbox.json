@@ -3,8 +3,10 @@
     "jetbrains.jdk-no-jcef@latest",
     "jetbrains.idea-ultimate@latest",
     "mysql84@latest",
-    "php@latest",
-    "bruno@2.12.0"
+    "bruno@2.12.0",
+    "jetbrains.datagrip@2025.3.2",
+    "nodemon@3.1.11",
+    "maven@latest"
   ],
   "shell": {
     "init_hook": [
@@ -19,11 +21,14 @@
       "bruno": [
         "nohup bruno >/dev/null 2>&1 &"
       ],
-      "adminer:run": [
-        "nohup php -S localhost:8081 database-utils/adminer.php >/dev/null 2>&1 &"
+      "datagrip": [
+        "nohup datagrip >/dev/null 2>&1 &"
       ],
-      "adminer:kill": [
-        "pkill -f 'php -S localhost:8081 database-utils/adminer.php'"
+      "app:run": [
+        "env $(grep -v '^#' .env | xargs) mvn -f game-manager/pom.xml spring-boot:run"
+      ],
+      "app:dev": [
+        "nodemon --watch game-manager/src --watch game-manager/src/main/resources --ext java,xml,yml,properties --signal SIGTERM --exec \"env $(grep -v '^#' .env | xargs) mvn -f game-manager/pom.xml spring-boot:run -Dspring-boot.run.fork=false\""
       ],
       "db:run": [
         "devbox services start mysql"
@@ -32,7 +37,6 @@
         "devbox services down"
       ],
       "db:setup": [
-        "export $(grep -v '^#' .env | sed 's/#.*//' | xargs -I {} echo export '{}')",
         "bash -c \"sed -e 's|<DB_PASS>|${DB_PASS}|g' -e 's|<DB_USER>|${DB_USER}|g' -e 's|<DB_NAME>|${DB_NAME}|g' database-utils/setup.sql | mysql -u root\""
       ],
       "db:connect": [
