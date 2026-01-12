@@ -52,7 +52,7 @@ public class GameController {
     @RequireProvider({Developer.class})
     @ResponseBody
     public ResponseEntity<GameResponseDto> announceGame(
-            @RequestBody @Valid @Validated(ValidationUtils.Create.class) GameCreateDto gameCreateDto
+            @RequestBody @Valid GameCreateDto gameCreateDto
     ) {
         return ResponseUtils.created(gameService.announceGame(gameCreateDto));
     }
@@ -63,7 +63,7 @@ public class GameController {
     @ResponseBody
     public ResponseEntity<GameResponseDto> updateGame(
             @PathVariable Integer gameId,
-            @RequestBody @Valid @Validated(ValidationUtils.Update.class) GameUpdateDto gameUpdateDto
+            @RequestBody @Valid GameUpdateDto gameUpdateDto
     ) {
         return ResponseUtils.created(gameService.updateGame(gameId, gameUpdateDto));
     }

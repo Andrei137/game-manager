@@ -12,6 +12,7 @@ import com.unibuc.game_manager.model.Developer;
 import com.unibuc.game_manager.model.Game;
 import com.unibuc.game_manager.model.Provider;
 import com.unibuc.game_manager.repository.ContractRepository;
+import com.unibuc.game_manager.repository.CustomerRepository;
 import com.unibuc.game_manager.repository.GameRepository;
 import com.unibuc.game_manager.utils.EnumUtils;
 import lombok.RequiredArgsConstructor;
@@ -28,8 +29,9 @@ public final class GameService {
     private final ContractRepository contractRepository;
     private final JWTService jwtService;
     private final GameMapper gameMapper;
+    private final CustomerRepository customerRepository;
 
-    private Game getGame(Integer gameId) {
+    public Game getGame(Integer gameId) {
         return gameRepository.findById(gameId).orElseThrow(
                 () -> new NotFoundException(String.format("Game with id %d not found", gameId))
         );

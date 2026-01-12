@@ -2,6 +2,7 @@ package com.unibuc.game_manager.aspect;
 
 import com.unibuc.game_manager.annotation.RequireProvider;
 import com.unibuc.game_manager.controller.ProviderController;
+import com.unibuc.game_manager.exception.ForbiddenException;
 import com.unibuc.game_manager.exception.UnauthorizedException;
 import com.unibuc.game_manager.model.Customer;
 import com.unibuc.game_manager.model.Provider;
@@ -51,7 +52,7 @@ public final class RoleAuthorizationAspect {
         assert user instanceof Provider;
         Provider provider = (Provider) user;
         if (!provider.getStatus().equals(Provider.Status.APPROVED)) {
-            throw new UnauthorizedException("You are banned");
+            throw new ForbiddenException("You are banned");
         }
     }
 

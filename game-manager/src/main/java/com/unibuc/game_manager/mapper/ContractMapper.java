@@ -2,7 +2,6 @@ package com.unibuc.game_manager.mapper;
 
 import com.unibuc.game_manager.dto.ContractDto;
 import com.unibuc.game_manager.model.Contract;
-import com.unibuc.game_manager.model.ContractId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +19,7 @@ public final class ContractMapper {
 
     public Contract toEntity(ContractDto dto) {
         var builder = Contract.builder()
-                .id(new ContractId())
+                .id(new Contract.ContractId())
                 .createdAt(LocalDate.now())
                 .expiryDate(dto.getExpiryDate())
                 .status(Contract.Status.PENDING);

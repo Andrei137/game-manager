@@ -4,31 +4,38 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.unibuc.game_manager.utils.EnumUtils;
 import com.unibuc.game_manager.utils.ViewUtils;
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode
 @Builder
 @Entity
 @Table(name = "contract")
 public class Contract implements EnumUtils.HasStatus<Contract.Status> {
+
+    @Embeddable
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class ContractId implements Serializable {
+
+        @JsonView(ViewUtils.Provider.class)
+        private Integer publisherId;
+
+        @JsonView(ViewUtils.Provider.class)
+        private Integer gameId;
+    }
 
     public enum Status implements EnumUtils.TransitionAware<Status> {
         PENDING,

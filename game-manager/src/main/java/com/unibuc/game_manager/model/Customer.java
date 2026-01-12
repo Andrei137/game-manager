@@ -42,13 +42,4 @@ public class Customer extends User {
     @JsonIgnore
     private List<Game> ownedGames;
 
-    @ManyToMany
-    @JoinTable(
-            name = "wishlist",
-            joinColumns = @JoinColumn(name = "customer_id"),
-            inverseJoinColumns = @JoinColumn(name = "game_id")
-    )
-    @JsonIgnore
-    private List<Game> wishlistedGames;
-
 }

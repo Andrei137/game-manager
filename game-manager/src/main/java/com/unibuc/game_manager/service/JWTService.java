@@ -1,6 +1,7 @@
 package com.unibuc.game_manager.service;
 
 import com.unibuc.game_manager.exception.UnauthorizedException;
+import com.unibuc.game_manager.model.Customer;
 import com.unibuc.game_manager.model.Provider;
 import com.unibuc.game_manager.model.User;
 import com.unibuc.game_manager.repository.UserRepository;
@@ -78,6 +79,11 @@ public final class JWTService {
         Optional<User> user = userRepository.findById(Integer.parseInt(getUserId()));
         if (user.isEmpty()) throw new UnauthorizedException();
         return user.get();
+    }
+
+    public Customer getCurrentCustomer() {
+        if (getCurrentUser() instanceof Customer customer) return customer;
+        return null;
     }
 
     public Provider getCurrentProvider() {

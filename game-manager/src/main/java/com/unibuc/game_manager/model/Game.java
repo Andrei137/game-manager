@@ -17,7 +17,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode
 @Builder
 @Entity
 @Table(name = "game")
@@ -50,11 +50,11 @@ public class Game implements EnumUtils.HasStatus<Game.Status> {
     private String title;
 
     @Column(nullable = false)
-    @JsonView(ViewUtils.Public.class)
+    @JsonView(ViewUtils.Provider.class)
     private Double price;
 
     @Column(nullable = false)
-    @JsonView(ViewUtils.Public.class)
+    @JsonView(ViewUtils.Provider.class)
     @Builder.Default
     private Integer discountPercentage = 0;
 
