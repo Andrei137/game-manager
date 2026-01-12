@@ -5,7 +5,7 @@ import com.unibuc.game_manager.exception.ForbiddenException;
 import com.unibuc.game_manager.exception.UnauthorizedException;
 import com.unibuc.game_manager.model.Customer;
 import com.unibuc.game_manager.model.Provider;
-import com.unibuc.game_manager.service.JWTService;
+import com.unibuc.game_manager.service.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -18,7 +18,7 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 public final class RoleAuthorizationAspect {
 
-    private final JWTService jwtService;
+    private final JwtService jwtService;
 
     private void checkAuthorization(Class<?>... classes) {
         Object user = jwtService.getCurrentUser();

@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-@Builder
+@Builder(toBuilder = true)
 @Entity
 @Table(name = "game")
 public class Game implements EnumUtils.HasStatus<Game.Status> {

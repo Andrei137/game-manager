@@ -6,7 +6,7 @@ import com.unibuc.game_manager.dto.DeveloperDto;
 import com.unibuc.game_manager.dto.PublisherDto;
 import com.unibuc.game_manager.dto.TokenDto;
 import com.unibuc.game_manager.service.AuthService;
-import com.unibuc.game_manager.service.JWTService;
+import com.unibuc.game_manager.service.JwtService;
 import com.unibuc.game_manager.utils.TestUtils;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -34,7 +34,7 @@ public class AuthControllerTest {
     private AuthService authService;
 
     @MockitoBean
-    private JWTService jwtService;
+    private JwtService jwtService;
 
     @Test
     void signin_ShouldReturnToken() throws Exception {

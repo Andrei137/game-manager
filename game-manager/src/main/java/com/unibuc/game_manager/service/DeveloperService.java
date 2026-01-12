@@ -5,16 +5,21 @@ import com.unibuc.game_manager.mapper.DeveloperMapper;
 import com.unibuc.game_manager.model.Developer;
 import com.unibuc.game_manager.repository.DeveloperRepository;
 import com.unibuc.game_manager.repository.ProviderRepository;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 @Service
-@RequiredArgsConstructor
 public final class DeveloperService extends ProviderService<Developer, DeveloperDto> {
 
-    private final DeveloperRepository developerRepository;
-    private final DeveloperMapper developerMapper;
+    @Autowired
+    private JwtService jwtService;
+
+    @Autowired
+    private DeveloperRepository developerRepository;
+
+    @Autowired
+    private DeveloperMapper developerMapper;
 
     @Override
     protected ProviderRepository<Developer> getRepository() {

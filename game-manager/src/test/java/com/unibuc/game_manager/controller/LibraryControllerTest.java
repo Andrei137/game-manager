@@ -1,6 +1,6 @@
 package com.unibuc.game_manager.controller;
 
-import com.unibuc.game_manager.service.JWTService;
+import com.unibuc.game_manager.service.JwtService;
 import com.unibuc.game_manager.service.LibraryService;
 import com.unibuc.game_manager.utils.TestUtils;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ public class LibraryControllerTest {
     private LibraryService libraryService;
 
     @MockitoBean
-    private JWTService jwtService;
+    private JwtService jwtService;
 
     @Test
     void getAllGames_ShouldReturnListOfOwnedGames() throws Exception {

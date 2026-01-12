@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -58,7 +57,6 @@ public class ContractController {
     })
     @GetMapping("")
     @RequireProvider({Developer.class, Publisher.class})
-    @ResponseBody
     public ResponseEntity<List<Contract>> getAllContracts() {
         return ResponseUtils.ok(contractService.getAllContracts());
     }
@@ -109,7 +107,6 @@ public class ContractController {
     })
     @PostMapping("/{gameId}")
     @RequireProvider({Publisher.class})
-    @ResponseBody
     public ResponseEntity<Contract> issueContract(
             @RequestBody @Valid ContractDto contractDto,
             @PathVariable Integer gameId
@@ -175,7 +172,6 @@ public class ContractController {
     })
     @PutMapping("/{gameId}")
     @RequireProvider({Publisher.class})
-    @ResponseBody
     public ResponseEntity<Contract> updateContract(
             @RequestBody @Valid ContractDto contractDto,
             @PathVariable Integer gameId
@@ -225,7 +221,6 @@ public class ContractController {
     })
     @DeleteMapping("/{gameId}")
     @RequireProvider({Publisher.class})
-    @ResponseBody
     public ResponseEntity<Void> deleteContract(
             @PathVariable Integer gameId
     ) {

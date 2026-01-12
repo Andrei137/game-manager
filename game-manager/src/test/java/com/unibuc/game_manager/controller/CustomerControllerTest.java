@@ -3,7 +3,7 @@ package com.unibuc.game_manager.controller;
 import com.unibuc.game_manager.dto.CustomerDto;
 import com.unibuc.game_manager.model.Customer;
 import com.unibuc.game_manager.service.CustomerService;
-import com.unibuc.game_manager.service.JWTService;
+import com.unibuc.game_manager.service.JwtService;
 import com.unibuc.game_manager.utils.TestUtils;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -32,7 +32,7 @@ public class CustomerControllerTest {
     private CustomerService customerService;
 
     @MockitoBean
-    private JWTService jwtService;
+    private JwtService jwtService;
 
     @Test
     void getAllCustomers_ShouldReturnListOfCustomers() throws Exception {

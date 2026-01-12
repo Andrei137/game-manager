@@ -6,7 +6,7 @@ import com.unibuc.game_manager.dto.GameResponseDto;
 import com.unibuc.game_manager.dto.GameUpdateDto;
 import com.unibuc.game_manager.model.Contract;
 import com.unibuc.game_manager.service.GameService;
-import com.unibuc.game_manager.service.JWTService;
+import com.unibuc.game_manager.service.JwtService;
 import com.unibuc.game_manager.utils.TestUtils;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -34,7 +34,7 @@ public class GameControllerTest {
     private GameService gameService;
 
     @MockitoBean
-    private JWTService jwtService;
+    private JwtService jwtService;
 
     @Test
     void getAllGames_ShouldReturnGames() throws Exception {

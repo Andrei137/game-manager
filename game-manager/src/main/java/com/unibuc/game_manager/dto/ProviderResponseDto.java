@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.unibuc.game_manager.model.Provider;
 import com.unibuc.game_manager.utils.ViewUtils;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 @Data
-@SuperBuilder
+@Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
 public final class ProviderResponseDto {

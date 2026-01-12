@@ -3,7 +3,7 @@ package com.unibuc.game_manager.controller;
 import com.unibuc.game_manager.dto.PublisherDto;
 import com.unibuc.game_manager.model.Provider;
 import com.unibuc.game_manager.model.Publisher;
-import com.unibuc.game_manager.service.JWTService;
+import com.unibuc.game_manager.service.JwtService;
 import com.unibuc.game_manager.service.PublisherService;
 import com.unibuc.game_manager.utils.TestUtils;
 import org.junit.jupiter.api.Test;
@@ -33,7 +33,7 @@ public class PublisherControllerTest {
     private PublisherService publisherService;
 
     @MockitoBean
-    private JWTService jwtService;
+    private JwtService jwtService;
 
     @Test
     void getAllPublishers_ShouldReturnListOfPublishers() throws Exception {

@@ -2,7 +2,7 @@ package com.unibuc.game_manager.mapper;
 
 import com.unibuc.game_manager.dto.CustomerDto;
 import com.unibuc.game_manager.model.Customer;
-import com.unibuc.game_manager.service.JWTService;
+import com.unibuc.game_manager.service.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +23,7 @@ public final class CustomerMapper extends UserMapper<Customer, CustomerDto> {
     public Customer toEntity(CustomerDto dto) {
         return Customer.builder()
                 .username(dto.getUsername())
-                .password(JWTService.encryptPassword(dto.getPassword()))
+                .password(JwtService.encryptPassword(dto.getPassword()))
                 .email(dto.getEmail())
                 .firstName(dto.getFirstName())
                 .lastName(dto.getLastName())

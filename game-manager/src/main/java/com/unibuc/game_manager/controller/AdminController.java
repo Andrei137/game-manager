@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -60,7 +59,6 @@ public class AdminController {
     @GetMapping("/providers")
     @JsonView(ViewUtils.Admin.class)
     @RequireAdmin
-    @ResponseBody
     public ResponseEntity<List<ProviderResponseDto>> getProviders(
             @Parameter(description = "Filter by provider status", required = false)
             @RequestParam(required = false) String status,
@@ -109,7 +107,6 @@ public class AdminController {
     @PutMapping("/providers/{providerId}")
     @JsonView(ViewUtils.Admin.class)
     @RequireAdmin
-    @ResponseBody
     public ResponseEntity<ProviderResponseDto> changeStatusPublisher(
             @PathVariable Integer providerId,
             @RequestBody @Valid ProviderUpdateDto providerUpdateDto

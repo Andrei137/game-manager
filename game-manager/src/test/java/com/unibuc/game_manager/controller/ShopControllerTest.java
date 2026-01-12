@@ -1,6 +1,6 @@
 package com.unibuc.game_manager.controller;
 
-import com.unibuc.game_manager.service.JWTService;
+import com.unibuc.game_manager.service.JwtService;
 import com.unibuc.game_manager.service.ShopService;
 import com.unibuc.game_manager.utils.TestUtils;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,7 @@ public class ShopControllerTest {
     private ShopService shopService;
 
     @MockitoBean
-    private JWTService jwtService;
+    private JwtService jwtService;
 
     @Test
     void getShop_ShouldReturnListOfGames() throws Exception {

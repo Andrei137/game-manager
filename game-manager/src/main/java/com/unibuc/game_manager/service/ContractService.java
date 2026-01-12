@@ -23,7 +23,7 @@ public final class ContractService {
 
     private final ContractRepository contractRepository;
     private final GameRepository gameRepository;
-    private final JWTService jwtService;
+    private final JwtService jwtService;
     private final ContractMapper contractMapper;
     private final GameService gameService;
 

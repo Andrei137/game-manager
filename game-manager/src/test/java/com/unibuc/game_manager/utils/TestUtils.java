@@ -8,7 +8,7 @@ import com.unibuc.game_manager.model.Developer;
 import com.unibuc.game_manager.model.Game;
 import com.unibuc.game_manager.model.Provider;
 import com.unibuc.game_manager.model.Publisher;
-import com.unibuc.game_manager.service.JWTService;
+import com.unibuc.game_manager.service.JwtService;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.time.LocalDate;
@@ -28,7 +28,7 @@ public class TestUtils {
             .builder()
             .id(1)
             .username("customer1")
-            .password(JWTService.encryptPassword(password))
+            .password(JwtService.encryptPassword(password))
             .email("customer1@test.com")
             .lastName("Cust")
             .firstName("Omer")
@@ -39,7 +39,7 @@ public class TestUtils {
             .builder()
             .id(2)
             .username("customer2")
-            .password(JWTService.encryptPassword(password))
+            .password(JwtService.encryptPassword(password))
             .email("customer2@test.com")
             .lastName("Cust")
             .firstName("Omer")
@@ -50,7 +50,7 @@ public class TestUtils {
             .builder()
             .id(3)
             .username("developer1")
-            .password(JWTService.encryptPassword(password))
+            .password(JwtService.encryptPassword(password))
             .email("developer1@test.com")
             .website("https://developer1.com")
             .status(Provider.Status.ACCEPTED)
@@ -60,7 +60,7 @@ public class TestUtils {
             .builder()
             .id(4)
             .username("developer2")
-            .password(JWTService.encryptPassword(password))
+            .password(JwtService.encryptPassword(password))
             .email("developer2@test.com")
             .website("https://developer2.com")
             .status(Provider.Status.ACCEPTED)
@@ -69,7 +69,7 @@ public class TestUtils {
     public static final Publisher publisher1 = Publisher.builder()
             .id(5)
             .username("publisher1")
-            .password(JWTService.encryptPassword(password))
+            .password(JwtService.encryptPassword(password))
             .email("publisher1@test.com")
             .website("https://publisher1.com")
             .status(Provider.Status.ACCEPTED)
@@ -78,7 +78,7 @@ public class TestUtils {
     public static final Publisher publisher2 = Publisher.builder()
             .id(6)
             .username("publisher2")
-            .password(JWTService.encryptPassword(password))
+            .password(JwtService.encryptPassword(password))
             .email("publisher2@test.com")
             .website("https://publisher2.com")
             .status(Provider.Status.ACCEPTED)

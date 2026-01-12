@@ -15,7 +15,7 @@ import java.util.Optional;
 public abstract class UserService<U extends User, D extends UserDto> {
 
     @Autowired
-    private JWTService jwtService;
+    private JwtService jwtService;
 
     protected abstract JpaRepository<U, Integer> getRepository();
 

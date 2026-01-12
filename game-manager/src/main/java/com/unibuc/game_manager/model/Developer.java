@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@SuperBuilder
+@SuperBuilder(toBuilder = true)
 @Entity
 @Table(name = "developer")
 public class Developer extends Provider {

@@ -24,7 +24,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -76,7 +75,6 @@ public class AuthController {
             )
     })
     @PostMapping("/signin")
-    @ResponseBody
     public ResponseEntity<TokenDto> signin(@RequestBody @Valid CredentialsDto credentials) {
         return ResponseUtils.ok(authService.signin(credentials));
     }
@@ -111,7 +109,6 @@ public class AuthController {
             )
     })
     @PostMapping("/signup")
-    @ResponseBody
     public ResponseEntity<Customer> signupClient(
             @RequestBody @Valid @Validated(ValidationUtils.Create.class) CustomerDto customerDto
     ) {
@@ -148,7 +145,6 @@ public class AuthController {
             )
     })
     @PostMapping("/request/developer")
-    @ResponseBody
     public ResponseEntity<Developer> requestDeveloper(
             @RequestBody @Valid @Validated(ValidationUtils.Create.class) DeveloperDto developerDto
     ) {
@@ -185,7 +181,6 @@ public class AuthController {
             )
     })
     @PostMapping("/request/publisher")
-    @ResponseBody
     public ResponseEntity<Publisher> requestPublisher(
             @RequestBody @Valid @Validated(ValidationUtils.Create.class) PublisherDto publisherDto
     ) {

@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -50,7 +49,6 @@ public abstract class ProviderController<P extends Provider, D extends ProviderC
     })
     @GetMapping("")
     @JsonView(ViewUtils.Public.class)
-    @ResponseBody
     public ResponseEntity<List<P>> getAll() {
         return ResponseUtils.ok(getService().getProvidersByStatus(Provider.Status.ACCEPTED));
     }
@@ -80,7 +78,6 @@ public abstract class ProviderController<P extends Provider, D extends ProviderC
     @GetMapping("/me")
     @JsonView(ViewUtils.Public.class)
     @RequireProvider({Developer.class, Publisher.class})
-    @ResponseBody
     public ResponseEntity<P> getCurrent() {
         return ResponseUtils.ok(getService().getCurrentUser());
     }
@@ -123,7 +120,6 @@ public abstract class ProviderController<P extends Provider, D extends ProviderC
     })
     @GetMapping("/{providerId}")
     @JsonView(ViewUtils.Public.class)
-    @ResponseBody
     public ResponseEntity<P> getById(@PathVariable Integer providerId) {
         return ResponseUtils.ok(getService().getProviderByIdAndStatus(providerId, Provider.Status.ACCEPTED));
     }
@@ -153,7 +149,6 @@ public abstract class ProviderController<P extends Provider, D extends ProviderC
     @PutMapping("")
     @JsonView(ViewUtils.Public.class)
     @RequireProvider({Developer.class, Publisher.class})
-    @ResponseBody
     public ResponseEntity<P> updateCurrent(@RequestBody @Validated(ValidationUtils.Update.class) D dto) {
         return ResponseUtils.ok(getService().updateLoggedUser(dto));
     }

@@ -4,10 +4,14 @@ import com.unibuc.game_manager.dto.ProviderCreateDto;
 import com.unibuc.game_manager.exception.NotFoundException;
 import com.unibuc.game_manager.model.Provider;
 import com.unibuc.game_manager.repository.ProviderRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 public abstract class ProviderService<P extends Provider, D extends ProviderCreateDto> extends UserService<P, D> {
+
+    @Autowired
+    private JwtService jwtService;
 
     protected abstract ProviderRepository<P> getRepository();
 

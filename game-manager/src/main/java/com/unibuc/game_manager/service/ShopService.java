@@ -15,12 +15,12 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ShopService {
+public final class ShopService {
 
     private final CustomerRepository customerRepository;
     private final GameRepository gameRepository;
     private final GameService gameService;
-    private final JWTService jwtService;
+    private final JwtService jwtService;
     private final GameMapper gameMapper;
 
     public List<GameResponseDto> getUnownedGames() {

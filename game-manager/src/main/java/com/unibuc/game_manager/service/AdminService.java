@@ -25,6 +25,22 @@ public final class AdminService {
     private final DeveloperMapper developerMapper;
     private final PublisherMapper publisherMapper;
 
+    private <P extends Provider> List<P> getProviders(
+            ProviderRepository<P> repository,
+            String status,
+            String name
+    ) {
+        Provider.Status statusObj = EnumUtils.fromString(Provider.Status.class, status);
+        String normalizedName = (name == null) ? "" : name.toLowerCase().trim();
+
+        return repository
+                .findAll()
+                .stream()
+                .filter(p -> statusObj == null || p.getStatus().equals(statusObj))
+                .filter(p -> normalizedName.isEmpty() || p.getUsername().toLowerCase().contains(normalizedName))
+                .toList();
+    }
+
     private <P extends Provider> ProviderResponseDto changeProviderStatus(
             ProviderRepository<P> repository,
             Integer id,
@@ -46,28 +62,6 @@ public final class AdminService {
         }
     }
 
-    private <P extends Provider> List<P> getProviders(
-            ProviderRepository<P> repository,
-            String status,
-            String name
-    ) {
-        Provider.Status statusObj = EnumUtils.fromString(Provider.Status.class, status);
-        String normalizedName = (name == null) ? "" : name.toLowerCase().trim();
-
-        return repository
-                .findAll()
-                .stream()
-                .filter(p -> statusObj == null || p.getStatus().equals(statusObj))
-                .filter(p -> normalizedName.isEmpty() || p.getUsername().toLowerCase().contains(normalizedName))
-                .toList();
-    }
-
-    public ProviderResponseDto changeProviderStatus(Integer id, String status) {
-        return developerRepository.existsById(id)
-                ? changeProviderStatus(developerRepository, id, status)
-                : changeProviderStatus(publisherRepository, id, status);
-    }
-
     public List<ProviderResponseDto> getProviders(String status, String name) {
         List<ProviderResponseDto> developers = getProviders(developerRepository, status, name)
                 .stream()
@@ -82,6 +76,12 @@ public final class AdminService {
         return Stream
                 .concat(developers.stream(), publishers.stream())
                 .toList();
+    }
+
+    public ProviderResponseDto changeProviderStatus(Integer id, String status) {
+        return developerRepository.existsById(id)
+                ? changeProviderStatus(developerRepository, id, status)
+                : changeProviderStatus(publisherRepository, id, status);
     }
 
 }

@@ -2,7 +2,7 @@ package com.unibuc.game_manager.mapper;
 
 import com.unibuc.game_manager.dto.UserDto;
 import com.unibuc.game_manager.model.User;
-import com.unibuc.game_manager.service.JWTService;
+import com.unibuc.game_manager.service.JwtService;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -14,7 +14,7 @@ public abstract class UserMapper<U extends User, D extends UserDto> {
         Optional.ofNullable(dto.getUsername()).ifPresent(entity::setUsername);
         Optional.ofNullable(dto.getPassword()).ifPresent(entity::setPassword);
         Optional.ofNullable(dto.getPassword())
-                .ifPresent(raw -> entity.setPassword(JWTService.encryptPassword(raw)));
+                .ifPresent(raw -> entity.setPassword(JwtService.encryptPassword(raw)));
         Optional.ofNullable(dto.getEmail()).ifPresent(entity::setEmail);
     }
 

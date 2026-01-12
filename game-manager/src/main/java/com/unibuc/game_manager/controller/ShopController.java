@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -54,7 +53,6 @@ public class ShopController {
     @GetMapping("")
     @JsonView(ViewUtils.Public.class)
     @RequireCustomer
-    @ResponseBody
     public ResponseEntity<List<GameResponseDto>> getShop() {
         return ResponseUtils.ok(shopService.getUnownedGames());
     }
@@ -95,7 +93,6 @@ public class ShopController {
     @GetMapping("/{gameId}")
     @JsonView(ViewUtils.Public.class)
     @RequireCustomer
-    @ResponseBody
     public ResponseEntity<GameResponseDto> getGameInShop(
             @PathVariable Integer gameId
     ) {
@@ -145,7 +142,6 @@ public class ShopController {
     @PostMapping("/{gameId}/buy")
     @JsonView(ViewUtils.Public.class)
     @RequireCustomer
-    @ResponseBody
     public ResponseEntity<Void> buyGame(
             @PathVariable Integer gameId
     ) {

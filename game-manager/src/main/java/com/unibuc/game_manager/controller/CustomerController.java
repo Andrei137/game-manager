@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -51,7 +50,6 @@ public class CustomerController {
     })
     @GetMapping("")
     @JsonView(ViewUtils.Public.class)
-    @ResponseBody
     public ResponseEntity<List<Customer>> getAllCustomers() {
         return ResponseUtils.ok(customerService.getAllUsers());
     }
@@ -81,7 +79,6 @@ public class CustomerController {
     @GetMapping("/me")
     @JsonView(ViewUtils.Public.class)
     @RequireCustomer
-    @ResponseBody
     public ResponseEntity<Customer> getCurrentCustomer() {
         return ResponseUtils.ok(customerService.getCurrentUser());
     }
@@ -121,7 +118,6 @@ public class CustomerController {
     })
     @GetMapping("/{customerId}")
     @JsonView(ViewUtils.Public.class)
-    @ResponseBody
     public ResponseEntity<Customer> getCustomer(@PathVariable Integer customerId) {
         return ResponseUtils.ok(customerService.getUserById(customerId));
     }
@@ -151,7 +147,6 @@ public class CustomerController {
     @PutMapping("")
     @JsonView(ViewUtils.Public.class)
     @RequireCustomer
-    @ResponseBody
     public ResponseEntity<Customer> updateCustomer(@RequestBody @Validated(Update.class) CustomerDto customerDto) {
         return ResponseUtils.ok(customerService.updateLoggedUser(customerDto));
     }

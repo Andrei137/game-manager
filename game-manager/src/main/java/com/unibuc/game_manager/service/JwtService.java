@@ -19,7 +19,7 @@ import javax.crypto.SecretKey;
 import java.util.Optional;
 
 @Service
-public final class JWTService {
+public final class JwtService {
 
     private final String secretKey;
     private static final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
@@ -28,9 +28,8 @@ public final class JWTService {
     private UserRepository userRepository;
 
     @Autowired
-    public JWTService(@Value("${security.jwt.secret-key}") String secretKey) {
+    public JwtService(@Value("${security.jwt.secret-key}") String secretKey) {
         this.secretKey = secretKey;
-        System.out.println("Admin Token: " + getToken("admin"));
     }
 
     private SecretKey getSecretKey() {
@@ -39,7 +38,7 @@ public final class JWTService {
 
     private String getUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.getPrincipal() instanceof String userId && !userId.equals("anonymousUser")) {
+        if (authentication != null && authentication.getPrincipal() instanceof String userId) {
             return userId;
         }
         throw new UnauthorizedException();

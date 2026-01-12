@@ -32,7 +32,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -66,7 +65,6 @@ public class GameController {
     })
     @GetMapping("")
     @RequireProvider({Developer.class, Publisher.class})
-    @ResponseBody
     public ResponseEntity<List<GameResponseDto>> getAllGames(
             @RequestParam(required = false) String status,
             @RequestParam(required = false) String title
@@ -109,7 +107,6 @@ public class GameController {
     @PostMapping("")
     @JsonView(ViewUtils.Provider.class)
     @RequireProvider({Developer.class})
-    @ResponseBody
     public ResponseEntity<GameResponseDto> announceGame(
             @RequestBody @Valid GameCreateDto gameCreateDto
     ) {
@@ -178,7 +175,6 @@ public class GameController {
     @PutMapping("/{gameId}")
     @JsonView(ViewUtils.Provider.class)
     @RequireProvider({Developer.class, Provider.class})
-    @ResponseBody
     public ResponseEntity<GameResponseDto> updateGame(
             @PathVariable Integer gameId,
             @RequestBody @Valid GameUpdateDto gameUpdateDto
@@ -233,7 +229,6 @@ public class GameController {
     @GetMapping({"/{gameId}/contracts"})
     @JsonView(ViewUtils.Provider.class)
     @RequireProvider({Developer.class})
-    @ResponseBody
     public ResponseEntity<List<Contract>> getContracts(
             @PathVariable Integer gameId
     ) {
@@ -287,7 +282,6 @@ public class GameController {
     @PutMapping({"/{gameId}/contracts/{publisherId}"})
     @JsonView(ViewUtils.Provider.class)
     @RequireProvider({Developer.class})
-    @ResponseBody
     public ResponseEntity<Contract> acceptContract(
             @PathVariable Integer gameId,
             @PathVariable Integer publisherId,

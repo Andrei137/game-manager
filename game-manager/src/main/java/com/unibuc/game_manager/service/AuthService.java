@@ -30,7 +30,7 @@ public final class AuthService {
     private final CustomerRepository customerRepository;
     private final PublisherRepository publisherRepository;
     private final DeveloperRepository developerRepository;
-    private final JWTService jwtService;
+    private final JwtService jwtService;
     private final CustomerMapper customerMapper;
     private final PublisherMapper publisherMapper;
     private final DeveloperMapper developerMapper;
@@ -38,7 +38,7 @@ public final class AuthService {
     public TokenDto signin(CredentialsDto credentials) {
         User user = userRepository.findByUsername(credentials.getUsername());
 
-        if (user == null || !JWTService.isPasswordValid(credentials.getPassword(), user.getPassword())) {
+        if (user == null || !JwtService.isPasswordValid(credentials.getPassword(), user.getPassword())) {
             throw new ValidationException("Invalid username or password");
         }
         if (user instanceof Provider provider) {
