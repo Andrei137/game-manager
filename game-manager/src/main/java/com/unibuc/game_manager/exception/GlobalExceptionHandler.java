@@ -71,7 +71,7 @@ public final class GlobalExceptionHandler {
 
     @ExceptionHandler(UnauthorizedException.class)
     public ResponseEntity<?> handleUnauthorized(UnauthorizedException ex) {
-        return ResponseUtils.unauthorized(ex.getMessage());
+        return ResponseUtils.unauthorized();
     }
 
     @ExceptionHandler(ForbiddenException.class)

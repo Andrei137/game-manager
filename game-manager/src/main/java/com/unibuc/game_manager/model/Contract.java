@@ -72,6 +72,7 @@ public class Contract implements EnumUtils.HasStatus<Contract.Status> {
     @Builder.Default
     private LocalDate createdAt = LocalDate.now();
 
+    @JsonView(ViewUtils.Provider.class)
     private LocalDate expiryDate;
 
     @Column(nullable = false)

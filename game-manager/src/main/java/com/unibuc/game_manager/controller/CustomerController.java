@@ -1,11 +1,13 @@
 package com.unibuc.game_manager.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.unibuc.game_manager.annotation.RequireCustomer;
 import com.unibuc.game_manager.dto.CustomerDto;
 import com.unibuc.game_manager.model.Customer;
 import com.unibuc.game_manager.service.CustomerService;
 import com.unibuc.game_manager.utils.ResponseUtils;
 import com.unibuc.game_manager.utils.ValidationUtils.Update;
+import com.unibuc.game_manager.utils.ViewUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -48,6 +50,7 @@ public class CustomerController {
             )
     })
     @GetMapping("")
+    @JsonView(ViewUtils.Public.class)
     @ResponseBody
     public ResponseEntity<List<Customer>> getAllCustomers() {
         return ResponseUtils.ok(customerService.getAllUsers());
@@ -76,8 +79,9 @@ public class CustomerController {
             )
     })
     @GetMapping("/me")
-    @ResponseBody
+    @JsonView(ViewUtils.Public.class)
     @RequireCustomer
+    @ResponseBody
     public ResponseEntity<Customer> getCurrentCustomer() {
         return ResponseUtils.ok(customerService.getCurrentUser());
     }
@@ -116,6 +120,7 @@ public class CustomerController {
             )
     })
     @GetMapping("/{customerId}")
+    @JsonView(ViewUtils.Public.class)
     @ResponseBody
     public ResponseEntity<Customer> getCustomer(@PathVariable Integer customerId) {
         return ResponseUtils.ok(customerService.getUserById(customerId));
@@ -144,8 +149,9 @@ public class CustomerController {
             )
     })
     @PutMapping("")
-    @ResponseBody
+    @JsonView(ViewUtils.Public.class)
     @RequireCustomer
+    @ResponseBody
     public ResponseEntity<Customer> updateCustomer(@RequestBody @Validated(Update.class) CustomerDto customerDto) {
         return ResponseUtils.ok(customerService.updateLoggedUser(customerDto));
     }

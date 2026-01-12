@@ -1,6 +1,8 @@
 package com.unibuc.game_manager.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.unibuc.game_manager.utils.ViewUtils;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -25,12 +27,15 @@ import java.util.List;
 public class Customer extends User {
 
     @Column(nullable = false)
+    @JsonView(ViewUtils.Public.class)
     private String lastName;
 
     @Column(nullable = false)
+    @JsonView(ViewUtils.Public.class)
     private String firstName;
 
     @Column(unique = true)
+    @JsonView(ViewUtils.Public.class)
     private String phoneNumber;
 
     @ManyToMany

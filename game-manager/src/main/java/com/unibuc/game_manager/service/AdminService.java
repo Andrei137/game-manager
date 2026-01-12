@@ -5,6 +5,7 @@ import com.unibuc.game_manager.exception.NotFoundException;
 import com.unibuc.game_manager.mapper.DeveloperMapper;
 import com.unibuc.game_manager.mapper.PublisherMapper;
 import com.unibuc.game_manager.model.Provider;
+import com.unibuc.game_manager.model.Publisher;
 import com.unibuc.game_manager.repository.DeveloperRepository;
 import com.unibuc.game_manager.repository.ProviderRepository;
 import com.unibuc.game_manager.repository.PublisherRepository;
@@ -24,7 +25,7 @@ public final class AdminService {
     private final DeveloperMapper developerMapper;
     private final PublisherMapper publisherMapper;
 
-    private <P extends Provider> P changeProviderStatus(
+    private <P extends Provider> ProviderResponseDto changeProviderStatus(
             ProviderRepository<P> repository,
             Integer id,
             String status
@@ -37,7 +38,12 @@ public final class AdminService {
                 entity,
                 Provider.Status.class
         );
-        return repository.save(entity);
+        repository.save(entity);
+        if (entity instanceof Publisher) {
+            return publisherMapper.toProviderResponseDto(entity, "publisher");
+        } else {
+            return developerMapper.toProviderResponseDto(entity, "developer");
+        }
     }
 
     private <P extends Provider> List<P> getProviders(
@@ -56,7 +62,7 @@ public final class AdminService {
                 .toList();
     }
 
-    public Provider changeProviderStatus(Integer id, String status) {
+    public ProviderResponseDto changeProviderStatus(Integer id, String status) {
         return developerRepository.existsById(id)
                 ? changeProviderStatus(developerRepository, id, status)
                 : changeProviderStatus(publisherRepository, id, status);

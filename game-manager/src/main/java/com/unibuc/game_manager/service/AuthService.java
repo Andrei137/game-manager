@@ -1,12 +1,20 @@
 package com.unibuc.game_manager.service;
 
-import com.unibuc.game_manager.dto.*;
+import com.unibuc.game_manager.dto.CredentialsDto;
+import com.unibuc.game_manager.dto.CustomerDto;
+import com.unibuc.game_manager.dto.DeveloperDto;
+import com.unibuc.game_manager.dto.PublisherDto;
+import com.unibuc.game_manager.dto.TokenDto;
 import com.unibuc.game_manager.exception.ForbiddenException;
 import com.unibuc.game_manager.exception.ValidationException;
 import com.unibuc.game_manager.mapper.CustomerMapper;
 import com.unibuc.game_manager.mapper.DeveloperMapper;
 import com.unibuc.game_manager.mapper.PublisherMapper;
-import com.unibuc.game_manager.model.*;
+import com.unibuc.game_manager.model.Customer;
+import com.unibuc.game_manager.model.Developer;
+import com.unibuc.game_manager.model.Provider;
+import com.unibuc.game_manager.model.Publisher;
+import com.unibuc.game_manager.model.User;
 import com.unibuc.game_manager.repository.CustomerRepository;
 import com.unibuc.game_manager.repository.DeveloperRepository;
 import com.unibuc.game_manager.repository.PublisherRepository;
@@ -27,7 +35,7 @@ public final class AuthService {
     private final PublisherMapper publisherMapper;
     private final DeveloperMapper developerMapper;
 
-    public TokenDto login(CredentialsDto credentials) {
+    public TokenDto signin(CredentialsDto credentials) {
         User user = userRepository.findByUsername(credentials.getUsername());
 
         if (user == null || !JWTService.isPasswordValid(credentials.getPassword(), user.getPassword())) {

@@ -1,4 +1,4 @@
-package com.unibuc.game_manager;
+package com.unibuc.game_manager.service;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;

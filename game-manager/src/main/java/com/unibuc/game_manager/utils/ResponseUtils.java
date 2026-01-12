@@ -7,7 +7,8 @@ import java.util.Map;
 
 public final class ResponseUtils {
 
-    private ResponseUtils() {}
+    private ResponseUtils() {
+    }
 
     private static <T> ResponseEntity<T> response(T obj, HttpStatus status) {
         return ResponseEntity.status(status).body(obj);
@@ -21,6 +22,10 @@ public final class ResponseUtils {
         String key = "error";
         if (error instanceof Iterable<?>) key = key.concat("s");
         return response(Map.of(key, error), status);
+    }
+
+    public static ResponseEntity<Void> error(HttpStatus status) {
+        return response(null, status);
     }
 
     public static <T> ResponseEntity<T> ok(T obj) {
@@ -39,8 +44,8 @@ public final class ResponseUtils {
         return error(err, HttpStatus.BAD_REQUEST);
     }
 
-    public static <T> ResponseEntity<Map<String, T>> unauthorized(T err) {
-        return error(err, HttpStatus.UNAUTHORIZED);
+    public static ResponseEntity<Void> unauthorized() {
+        return error(HttpStatus.UNAUTHORIZED);
     }
 
     public static <T> ResponseEntity<Map<String, T>> forbidden(T err) {

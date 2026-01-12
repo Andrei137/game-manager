@@ -61,7 +61,7 @@ public class AdminController {
     @JsonView(ViewUtils.Admin.class)
     @RequireAdmin
     @ResponseBody
-    public ResponseEntity<List<ProviderResponseDto>> getPublishers(
+    public ResponseEntity<List<ProviderResponseDto>> getProviders(
             @Parameter(description = "Filter by provider status", required = false)
             @RequestParam(required = false) String status,
 
@@ -110,7 +110,7 @@ public class AdminController {
     @JsonView(ViewUtils.Admin.class)
     @RequireAdmin
     @ResponseBody
-    public ResponseEntity<Provider> changeStatusPublisher(
+    public ResponseEntity<ProviderResponseDto> changeStatusPublisher(
             @PathVariable Integer providerId,
             @RequestBody @Valid ProviderUpdateDto providerUpdateDto
     ) {

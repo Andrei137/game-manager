@@ -11,8 +11,8 @@ put {
 }
 
 headers {
-  Authorization: Bearer {{validPublisherJWT}}
   ~Authorization: Bearer {{validDeveloperJWT}}
+  ~Authorization: Bearer {{validPublisherJWT}}
 }
 
 body:json {
