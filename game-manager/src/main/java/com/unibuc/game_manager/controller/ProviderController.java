@@ -5,11 +5,17 @@ import com.unibuc.game_manager.annotation.RequireProvider;
 import com.unibuc.game_manager.dto.ProviderCreateDto;
 import com.unibuc.game_manager.model.Provider;
 import com.unibuc.game_manager.service.ProviderService;
-import com.unibuc.game_manager.utils.*;
+import com.unibuc.game_manager.utils.ResponseUtils;
+import com.unibuc.game_manager.utils.ValidationUtils;
+import com.unibuc.game_manager.utils.ViewUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -19,6 +25,7 @@ public abstract class ProviderController<P extends Provider, D extends ProviderC
     public abstract ProviderService<P, D> getService();
 
     @GetMapping("")
+    @JsonView(ViewUtils.Public.class)
     @ResponseBody
     public ResponseEntity<List<P>> getAll() {
         return ResponseUtils.ok(getService().getProvidersByStatus(Provider.Status.APPROVED));
@@ -32,11 +39,11 @@ public abstract class ProviderController<P extends Provider, D extends ProviderC
         return ResponseUtils.ok(getService().getCurrentUser());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{providerId}")
     @JsonView(ViewUtils.Public.class)
     @ResponseBody
-    public ResponseEntity<P> getById(@PathVariable Integer id) {
-        return ResponseUtils.ok(getService().getProviderByIdAndStatus(id, Provider.Status.APPROVED));
+    public ResponseEntity<P> getById(@PathVariable Integer providerId) {
+        return ResponseUtils.ok(getService().getProviderByIdAndStatus(providerId, Provider.Status.APPROVED));
     }
 
     @PutMapping("")

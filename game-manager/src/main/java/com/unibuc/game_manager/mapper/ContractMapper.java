@@ -19,13 +19,14 @@ public final class ContractMapper {
     }
 
     public Contract toEntity(ContractDto dto) {
-        return Contract.builder()
+        var builder = Contract.builder()
                 .id(new ContractId())
                 .createdAt(LocalDate.now())
                 .expiryDate(dto.getExpiryDate())
-                .cutPercentage(Optional.ofNullable(dto.getCutPercentage()).orElse(30))
-                .status(Contract.Status.PENDING)
-                .build();
+                .status(Contract.Status.PENDING);
+        Optional.ofNullable(dto.getCutPercentage())
+                .ifPresent(builder::cutPercentage);
+        return builder.build();
     }
 
 }

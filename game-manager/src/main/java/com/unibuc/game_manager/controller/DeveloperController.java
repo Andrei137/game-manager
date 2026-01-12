@@ -4,11 +4,9 @@ import com.unibuc.game_manager.dto.DeveloperDto;
 import com.unibuc.game_manager.model.Developer;
 import com.unibuc.game_manager.service.DeveloperService;
 import com.unibuc.game_manager.service.ProviderService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController

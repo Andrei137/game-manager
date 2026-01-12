@@ -1,18 +1,17 @@
 meta {
-  name: Read All
+  name: Get Contracts
   type: http
-  seq: 1
+  seq: 5
 }
 
 get {
-  url: {{url}}/contracts
+  url: {{url}}/games/1/contracts
   body: none
   auth: inherit
 }
 
 headers {
   Authorization: Bearer {{validDeveloperJWT}}
-  ~Authorization: Bearer {{validPublisherJWT}}
 }
 
 settings {

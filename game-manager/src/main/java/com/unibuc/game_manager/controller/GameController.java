@@ -2,9 +2,11 @@ package com.unibuc.game_manager.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.unibuc.game_manager.annotation.RequireProvider;
+import com.unibuc.game_manager.dto.ContractDto;
 import com.unibuc.game_manager.dto.GameCreateDto;
 import com.unibuc.game_manager.dto.GameResponseDto;
 import com.unibuc.game_manager.dto.GameUpdateDto;
+import com.unibuc.game_manager.model.Contract;
 import com.unibuc.game_manager.model.Developer;
 import com.unibuc.game_manager.model.Provider;
 import com.unibuc.game_manager.model.Publisher;
@@ -16,7 +18,15 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -47,15 +57,37 @@ public class GameController {
         return ResponseUtils.created(gameService.announceGame(gameCreateDto));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{gameId}")
     @JsonView(ViewUtils.Provider.class)
     @RequireProvider({Developer.class, Provider.class})
     @ResponseBody
     public ResponseEntity<GameResponseDto> updateGame(
-            @PathVariable Integer id,
+            @PathVariable Integer gameId,
             @RequestBody @Valid @Validated(ValidationUtils.Update.class) GameUpdateDto gameUpdateDto
     ) {
-        return ResponseUtils.created(gameService.updateGame(id, gameUpdateDto));
+        return ResponseUtils.created(gameService.updateGame(gameId, gameUpdateDto));
+    }
+
+    @GetMapping({"/{gameId}/contracts"})
+    @JsonView(ViewUtils.Provider.class)
+    @RequireProvider({Developer.class})
+    @ResponseBody
+    public ResponseEntity<List<Contract>> getContracts(
+            @PathVariable Integer gameId
+    ) {
+        return ResponseUtils.ok(gameService.getGameContracts(gameId));
+    }
+
+    @PutMapping({"/{gameId}/contracts/{publisherId}"})
+    @JsonView(ViewUtils.Provider.class)
+    @RequireProvider({Developer.class})
+    @ResponseBody
+    public ResponseEntity<Contract> acceptContract(
+            @PathVariable Integer gameId,
+            @PathVariable Integer publisherId,
+            @RequestBody @Valid @Validated(ValidationUtils.Update.class) ContractDto contractDto
+    ) {
+        return ResponseUtils.ok(gameService.updateContractStatus(gameId, publisherId, contractDto));
     }
 
 }

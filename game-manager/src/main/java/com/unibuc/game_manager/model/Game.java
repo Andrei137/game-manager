@@ -2,6 +2,7 @@ package com.unibuc.game_manager.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.unibuc.game_manager.utils.EnumUtils;
 import com.unibuc.game_manager.utils.ViewUtils;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -20,20 +21,21 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "game")
-public class Game {
+public class Game implements EnumUtils.HasStatus<Game.Status> {
 
-    public enum Status {
+    public enum Status implements EnumUtils.TransitionAware<Status> {
         ANNOUNCED,
         DEVELOPED,
         PUBLISHED,
         DELISTED;
 
-        public static boolean isValidTransition(Status from, Status to) {
+        @Override
+        public boolean canTransitionFrom(Status from) {
             return switch (from) {
-                case ANNOUNCED -> to == DEVELOPED;
-                case DEVELOPED -> to == PUBLISHED || to == DELISTED;
-                case PUBLISHED -> to == DELISTED;
-                case DELISTED -> to == PUBLISHED;
+                case ANNOUNCED -> this == DEVELOPED;
+                case DEVELOPED -> this == PUBLISHED || this == DELISTED;
+                case PUBLISHED -> this == DELISTED;
+                case DELISTED -> this == PUBLISHED;
             };
         }
     }

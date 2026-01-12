@@ -29,8 +29,6 @@ public final class JWTService {
     @Autowired
     public JWTService(@Value("${security.jwt.secret-key}") String secretKey) {
         this.secretKey = secretKey;
-
-        // Admin Token Generation
         System.out.println("Admin Token: " + getToken("admin"));
     }
 
@@ -76,10 +74,15 @@ public final class JWTService {
         if (!getUserId().equals("admin")) throw new UnauthorizedException();
     }
 
-    public User getUser() {
+    public User getCurrentUser() {
         Optional<User> user = userRepository.findById(Integer.parseInt(getUserId()));
         if (user.isEmpty()) throw new UnauthorizedException();
         return user.get();
+    }
+
+    public Provider getCurrentProvider() {
+        if (getCurrentUser() instanceof Provider provider) return provider;
+        return null;
     }
 
 }

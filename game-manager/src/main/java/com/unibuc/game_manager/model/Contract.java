@@ -1,6 +1,9 @@
 package com.unibuc.game_manager.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.unibuc.game_manager.utils.EnumUtils;
+import com.unibuc.game_manager.utils.ViewUtils;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -25,30 +28,25 @@ import java.time.LocalDate;
 @Builder
 @Entity
 @Table(name = "contract")
-public class Contract {
+public class Contract implements EnumUtils.HasStatus<Contract.Status> {
 
-    public enum Status {
+    public enum Status implements EnumUtils.TransitionAware<Status> {
         PENDING,
         ACCEPTED,
         REJECTED;
 
-        public static boolean isValidTransition(Status from, Status to) {
+        @Override
+        public boolean canTransitionFrom(Status from) {
             return switch (from) {
-                case PENDING -> to == ACCEPTED || to == REJECTED;
-                case REJECTED -> to == PENDING;
+                case PENDING -> this == ACCEPTED || this == REJECTED;
                 default -> false;
             };
         }
     }
 
     @EmbeddedId
+    @JsonView(ViewUtils.Provider.class)
     private ContractId id;
-
-    @ManyToOne
-    @MapsId("developerId")
-    @JoinColumn(name = "developer_id", nullable = false)
-    @JsonIgnore
-    private Developer developer;
 
     @ManyToOne
     @MapsId("publisherId")
@@ -63,17 +61,20 @@ public class Contract {
     private Game game;
 
     @Column(nullable = false)
+    @JsonView(ViewUtils.Provider.class)
     @Builder.Default
     private LocalDate createdAt = LocalDate.now();
 
     private LocalDate expiryDate;
 
     @Column(nullable = false)
+    @JsonView(ViewUtils.Provider.class)
     @Builder.Default
     private Integer cutPercentage = 30;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @JsonView(ViewUtils.Provider.class)
     @Builder.Default
     private Status status = Status.PENDING;
 

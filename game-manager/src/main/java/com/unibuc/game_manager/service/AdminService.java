@@ -2,7 +2,6 @@ package com.unibuc.game_manager.service;
 
 import com.unibuc.game_manager.dto.ProviderResponseDto;
 import com.unibuc.game_manager.exception.NotFoundException;
-import com.unibuc.game_manager.exception.ValidationException;
 import com.unibuc.game_manager.mapper.DeveloperMapper;
 import com.unibuc.game_manager.mapper.PublisherMapper;
 import com.unibuc.game_manager.model.Provider;
@@ -25,7 +24,7 @@ public final class AdminService {
     private final DeveloperMapper developerMapper;
     private final PublisherMapper publisherMapper;
 
-    private <P extends Provider> P _changeProviderStatus(
+    private <P extends Provider> P changeProviderStatus(
             ProviderRepository<P> repository,
             Integer id,
             String status
@@ -33,18 +32,11 @@ public final class AdminService {
         P entity = repository
                 .findById(id)
                 .orElseThrow(() -> new NotFoundException("Entity with id " + id + " not found"));
-
-        Provider.Status newStatus = Provider.Status.valueOf(status.toUpperCase());
-        Provider.Status currentStatus = entity.getStatus();
-        if (!Provider.Status.isValidTransition(currentStatus, newStatus)) {
-            throw new ValidationException(String.format(
-                    "Cannot change status from %s to %s",
-                    EnumUtils.toString(currentStatus),
-                    EnumUtils.toString(newStatus)
-            ));
-        }
-        entity.setStatus(newStatus);
-
+        EnumUtils.updateStatus(
+                status,
+                entity,
+                Provider.Status.class
+        );
         return repository.save(entity);
     }
 
@@ -66,8 +58,8 @@ public final class AdminService {
 
     public Provider changeProviderStatus(Integer id, String status) {
         return developerRepository.existsById(id)
-                ? _changeProviderStatus(developerRepository, id, status)
-                : _changeProviderStatus(publisherRepository, id, status);
+                ? changeProviderStatus(developerRepository, id, status)
+                : changeProviderStatus(publisherRepository, id, status);
     }
 
     public List<ProviderResponseDto> getProviders(String status, String name) {

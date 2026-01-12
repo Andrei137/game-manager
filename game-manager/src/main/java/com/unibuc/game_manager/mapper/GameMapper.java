@@ -19,12 +19,13 @@ public final class GameMapper {
     }
 
     public Game toEntity(GameCreateDto dto) {
-        return Game.builder()
+        var builder = Game.builder()
                 .title(dto.getTitle())
-                .price(Optional.ofNullable(dto.getPrice()).orElse(0.0))
                 .releaseDate(LocalDate.now())
-                .status(Game.Status.ANNOUNCED)
-                .build();
+                .status(Game.Status.ANNOUNCED);
+        Optional.ofNullable(dto.getPrice())
+                .ifPresent(builder::price);
+        return builder.build();
     }
 
     public GameResponseDto toResponseDto(Game entity) {

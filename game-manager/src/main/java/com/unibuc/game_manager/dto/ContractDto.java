@@ -2,7 +2,6 @@ package com.unibuc.game_manager.dto;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,12 +13,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ContractDto {
-
-    @NotNull(message = "partnerId is required and cannot be blank")
-    private Integer partnerId;
-
-    @NotNull(message = "gameId is required and cannot be blank")
-    private Integer gameId;
 
     @Min(value = 0, message = "Cut percentage cannot be less than 0")
     @Max(value = 100, message = "Cut percentage cannot be greater than 100")

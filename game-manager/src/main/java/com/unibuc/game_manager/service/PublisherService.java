@@ -46,7 +46,7 @@ public final class PublisherService extends ProviderService<Publisher, Publisher
         String normalizedTitle = (title == null) ? "" : title.toLowerCase().trim();
 
         return gameRepository
-                .getAllGamesByPublisherId(id)
+                .getGamesByPublisherId(id)
                 .stream()
                 .filter(g -> statusObj == null || g.getStatus().equals(statusObj))
                 .filter(g -> g.getTitle().toLowerCase().contains(normalizedTitle))

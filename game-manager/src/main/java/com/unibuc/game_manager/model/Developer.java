@@ -25,8 +25,4 @@ public class Developer extends Provider {
     @JsonIgnore
     private List<Game> developedGames;
 
-    @OneToMany(mappedBy = "developer")
-    @JsonIgnore
-    private List<Contract> contracts;
-
 }

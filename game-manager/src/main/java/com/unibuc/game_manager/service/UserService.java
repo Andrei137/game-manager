@@ -18,7 +18,9 @@ public abstract class UserService<U extends User, D extends UserDto> {
     private JWTService jwtService;
 
     protected abstract JpaRepository<U, Integer> getRepository();
+
     protected abstract String getEntityName();
+
     protected abstract UserMapper<U, D> getMapper();
 
     public final List<U> getAllUsers() {
@@ -34,9 +36,9 @@ public abstract class UserService<U extends User, D extends UserDto> {
         return user.get();
     }
 
-    @SuppressWarnings (value="unchecked")
+    @SuppressWarnings(value = "unchecked")
     public final U getCurrentUser() {
-        return (U) jwtService.getUser();
+        return (U) jwtService.getCurrentUser();
     }
 
     public final U updateLoggedUser(D userDto) {

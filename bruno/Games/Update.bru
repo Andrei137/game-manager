@@ -5,9 +5,13 @@ meta {
 }
 
 put {
-  url: {{url}}/{{endpoint}}/3
+  url: {{url}}/games/3
   body: json
   auth: inherit
+}
+
+headers {
+  Authorization: Bearer {{validDeveloperJWT}}
 }
 
 body:json {

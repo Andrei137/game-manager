@@ -1,5 +1,7 @@
 package com.unibuc.game_manager.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.unibuc.game_manager.utils.ViewUtils;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,8 +17,10 @@ import java.io.Serializable;
 @Builder
 public class ContractId implements Serializable {
 
-    private Integer developerId;
+    @JsonView(ViewUtils.Provider.class)
     private Integer publisherId;
+
+    @JsonView(ViewUtils.Provider.class)
     private Integer gameId;
 
 }

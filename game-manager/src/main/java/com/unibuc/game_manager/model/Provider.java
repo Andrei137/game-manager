@@ -1,14 +1,21 @@
 package com.unibuc.game_manager.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.unibuc.game_manager.utils.EnumUtils;
 import com.unibuc.game_manager.utils.ViewUtils;
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-
-import java.util.Arrays;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -18,19 +25,20 @@ import java.util.List;
 @Entity
 @Table(name = "provider")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Provider extends User {
+public abstract class Provider extends User implements EnumUtils.HasStatus<Provider.Status> {
 
-    public enum Status {
+    public enum Status implements EnumUtils.TransitionAware<Status> {
         PENDING,
         APPROVED,
         REJECTED,
         BANNED;
 
-        public static boolean isValidTransition(Status from, Status to) {
+        @Override
+        public boolean canTransitionFrom(Status from) {
             return switch (from) {
-                case PENDING -> to == APPROVED || to == REJECTED;
-                case BANNED -> to == APPROVED;
-                case Status.APPROVED -> to == BANNED;
+                case PENDING -> this == APPROVED || this == REJECTED;
+                case BANNED -> this == APPROVED;
+                case Status.APPROVED -> this == BANNED;
                 default -> false;
             };
         }

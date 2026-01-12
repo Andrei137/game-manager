@@ -2,14 +2,15 @@ package com.unibuc.game_manager.aspect;
 
 import com.unibuc.game_manager.annotation.RequireProvider;
 import com.unibuc.game_manager.controller.ProviderController;
-import com.unibuc.game_manager.model.*;
+import com.unibuc.game_manager.exception.UnauthorizedException;
+import com.unibuc.game_manager.model.Customer;
+import com.unibuc.game_manager.model.Provider;
 import com.unibuc.game_manager.service.JWTService;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
-import com.unibuc.game_manager.exception.UnauthorizedException;
 
 import java.util.Arrays;
 
@@ -21,7 +22,7 @@ public final class RoleAuthorizationAspect {
     private final JWTService jwtService;
 
     private void checkAuthorization(Class<?>... classes) {
-        Object user = jwtService.getUser();
+        Object user = jwtService.getCurrentUser();
         if (Arrays.stream(classes).noneMatch(_class -> _class.isInstance(user))) {
             throw new UnauthorizedException();
         }
@@ -46,6 +47,12 @@ public final class RoleAuthorizationAspect {
             }
         }
         checkAuthorization(allowed);
+        Object user = jwtService.getCurrentUser();
+        assert user instanceof Provider;
+        Provider provider = (Provider) user;
+        if (!provider.getStatus().equals(Provider.Status.APPROVED)) {
+            throw new UnauthorizedException("You are banned");
+        }
     }
 
 }

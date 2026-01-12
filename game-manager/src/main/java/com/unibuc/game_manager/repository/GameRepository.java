@@ -9,7 +9,8 @@ import java.util.List;
 @Repository
 public interface GameRepository extends JpaRepository<Game, Integer> {
 
-    List<Game> getAllGamesByDeveloperId(Integer id);
-    List<Game> getAllGamesByPublisherId(Integer id);
+    List<Game> getGamesByDeveloperId(Integer id);
+
+    List<Game> getGamesByPublisherId(Integer id);
 
 }

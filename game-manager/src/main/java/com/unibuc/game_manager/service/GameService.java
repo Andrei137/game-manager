@@ -1,15 +1,17 @@
 package com.unibuc.game_manager.service;
 
+import com.unibuc.game_manager.dto.ContractDto;
 import com.unibuc.game_manager.dto.GameCreateDto;
 import com.unibuc.game_manager.dto.GameResponseDto;
 import com.unibuc.game_manager.dto.GameUpdateDto;
 import com.unibuc.game_manager.exception.ForbiddenException;
 import com.unibuc.game_manager.exception.NotFoundException;
-import com.unibuc.game_manager.exception.ValidationException;
 import com.unibuc.game_manager.mapper.GameMapper;
+import com.unibuc.game_manager.model.Contract;
 import com.unibuc.game_manager.model.Developer;
 import com.unibuc.game_manager.model.Game;
 import com.unibuc.game_manager.model.Provider;
+import com.unibuc.game_manager.repository.ContractRepository;
 import com.unibuc.game_manager.repository.GameRepository;
 import com.unibuc.game_manager.utils.EnumUtils;
 import lombok.RequiredArgsConstructor;
@@ -23,12 +25,14 @@ import java.util.stream.Stream;
 public final class GameService {
 
     private final GameRepository gameRepository;
+    private final ContractRepository contractRepository;
     private final JWTService jwtService;
     private final GameMapper gameMapper;
 
-    public Provider getCurrentProvider() {
-        if (jwtService.getUser() instanceof Provider provider) return provider;
-        return null;
+    private Game getGame(Integer gameId) {
+        return gameRepository.findById(gameId).orElseThrow(
+                () -> new NotFoundException(String.format("Game with id %d not found", gameId))
+        );
     }
 
     private Provider getGameOwner(Game game) {
@@ -42,12 +46,12 @@ public final class GameService {
         String normalizedTitle = (title == null) ? "" : title.toLowerCase().trim();
 
         Stream<Game> gamesStream;
-        Provider provider = getCurrentProvider();
+        Provider provider = jwtService.getCurrentProvider();
         assert provider != null;
         if (provider instanceof Developer) {
-            gamesStream = gameRepository.getAllGamesByDeveloperId(provider.getId()).stream();
+            gamesStream = gameRepository.getGamesByDeveloperId(provider.getId()).stream();
         } else {
-            gamesStream = gameRepository.getAllGamesByPublisherId(provider.getId()).stream();
+            gamesStream = gameRepository.getGamesByPublisherId(provider.getId()).stream();
         }
 
         return gamesStream
@@ -59,37 +63,67 @@ public final class GameService {
 
     public GameResponseDto announceGame(GameCreateDto gameCreateDto) {
         Game game = gameMapper.toEntity(gameCreateDto);
-        game.setDeveloper((Developer) getCurrentProvider());
+        game.setDeveloper((Developer) jwtService.getCurrentProvider());
         return gameMapper.toResponseDto(gameRepository.save(game));
     }
 
     public GameResponseDto updateGame(Integer gameId, GameUpdateDto gameUpdateDto) {
-        Game game = gameRepository.findById(gameId).orElseThrow(
-                () -> new NotFoundException(String.format("Game with id %d not found", gameId))
-        );
-        if (!getGameOwner(game).equals(getCurrentProvider())) {
+        Game game = getGame(gameId);
+        Provider owner = getGameOwner(game);
+        if (!owner.equals(jwtService.getCurrentProvider())) {
             throw new ForbiddenException("Not enough permissions");
         }
+        if (owner instanceof Developer) {
+            Contract contract = contractRepository.getContractByGameIdAndStatus(gameId, Contract.Status.ACCEPTED);
+            if (contract != null && !game.getStatus().equals(Game.Status.ANNOUNCED)) {
+                throw new ForbiddenException("Cannot update the game anymore, you are under contract");
+            }
+        } else if (game.getStatus().equals(Game.Status.ANNOUNCED)) {
+            throw new ForbiddenException("Game is not developed yet");
+        }
 
-        String status = gameUpdateDto.getStatus();
-        if (status != null) {
-            Game.Status newStatus = Game.Status.valueOf(status.toUpperCase());
-            Game.Status currentStatus = game.getStatus();
-            if (!Game.Status.isValidTransition(currentStatus, newStatus)) {
-                throw new ValidationException(String.format(
-                        "Cannot change status from %s to %s",
-                        EnumUtils.toString(currentStatus),
-                        EnumUtils.toString(newStatus)
-                ));
-            }
-            game.setStatus(newStatus);
-            if (newStatus.equals(Game.Status.PUBLISHED)) {
-                game.setPublisher(getCurrentProvider());
-            }
+        EnumUtils.updateStatus(
+                gameUpdateDto.getStatus(),
+                game,
+                Game.Status.class
+        );
+        if (game.getStatus().equals(Game.Status.PUBLISHED)) {
+            game.setPublisher(jwtService.getCurrentProvider());
         }
 
         gameMapper.updateEntityFromDto(gameUpdateDto, game);
         return gameMapper.toResponseDto(gameRepository.save(game));
+    }
+
+    public List<Contract> getGameContracts(Integer gameId) {
+        Game game = getGame(gameId);
+        Provider provider = jwtService.getCurrentProvider();
+        if (!game.getDeveloper().getId().equals(provider.getId())) {
+            throw new ForbiddenException("Not enough permissions");
+        }
+
+        return game.getContracts();
+    }
+
+    public Contract updateContractStatus(Integer gameId, Integer publisherId, ContractDto contractDto) {
+        Game game = getGame(gameId);
+        Provider provider = jwtService.getCurrentProvider();
+        if (!game.getDeveloper().getId().equals(provider.getId())) {
+            throw new ForbiddenException("Not enough permissions");
+        }
+
+        Contract contract = contractRepository.getContractByPublisherIdAndGameId(publisherId, gameId);
+        if (contract == null) {
+            throw new NotFoundException(String.format("No contract found for game id %d and publisher id %d", gameId, publisherId));
+        }
+
+        EnumUtils.updateStatus(
+                contractDto.getStatus(),
+                contract,
+                Contract.Status.class
+        );
+
+        return contractRepository.save(contract);
     }
 
 }

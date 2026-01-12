@@ -9,14 +9,12 @@ import java.util.List;
 @Repository
 public interface ContractRepository extends JpaRepository<Contract, Integer> {
 
-    List<Contract> getContractsByDeveloperId(Integer publisherId);
-
     List<Contract> getContractsByPublisherId(Integer developerId);
 
-    List<Contract> getContractsByDeveloperIdAndGameId(Integer developerId, Integer gameId);
+    List<Contract> getContractsByGameId(Integer gameId);
 
-    List<Contract> getContractsByPublisherIdAndGameId(Integer publisherId, Integer gameId);
+    Contract getContractByPublisherIdAndGameId(Integer publisherId, Integer gameId);
 
-    Contract getContractByDeveloperIdAndPublisherIdAndGameId(Integer developerId, Integer publisherId, Integer gameId);
+    Contract getContractByGameIdAndStatus(Integer gameId, Contract.Status status);
 
 }

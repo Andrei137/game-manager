@@ -40,15 +40,15 @@ public class AdminController {
         return ResponseUtils.ok(adminService.getProviders(status, name));
     }
 
-    @PutMapping("/providers/{id}")
+    @PutMapping("/providers/{providerId}")
     @JsonView(ViewUtils.Admin.class)
     @RequireAdmin
     @ResponseBody
     public ResponseEntity<Provider> changeStatusPublisher(
-            @PathVariable Integer id,
+            @PathVariable Integer providerId,
             @RequestBody @Valid ProviderUpdateDto providerUpdateDto
     ) {
-        return ResponseUtils.ok(adminService.changeProviderStatus(id, providerUpdateDto.getStatus()));
+        return ResponseUtils.ok(adminService.changeProviderStatus(providerId, providerUpdateDto.getStatus()));
     }
 
 }
