@@ -10,7 +10,6 @@ import java.util.List;
 public abstract class ProviderService<P extends Provider, D extends ProviderCreateDto> extends UserService<P, D> {
 
     protected abstract ProviderRepository<P> getRepository();
-    public abstract Class<P> getProviderClass();
 
     public final List<P> getProvidersByStatus(Provider.Status status) {
         return getRepository().findByStatus(status);

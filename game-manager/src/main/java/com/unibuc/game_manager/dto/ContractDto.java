@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ContractDto {
+public final class ContractDto {
 
     @Min(value = 0, message = "Cut percentage cannot be less than 0")
     @Max(value = 100, message = "Cut percentage cannot be greater than 100")

@@ -13,9 +13,9 @@ public final class ProviderUpdateDto {
 
     @NotBlank(message = "status is required")
     @Pattern(
-            regexp = "APPROVED|REJECTED|BANNED",
+            regexp = "ACCEPTED|REJECTED|BANNED",
             flags = Pattern.Flag.CASE_INSENSITIVE,
-            message = "status must be one of APPROVED, REJECTED, BANNED"
+            message = "status must be one of ACCEPTED, REJECTED, BANNED"
     )
     private String status;
 

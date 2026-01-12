@@ -25,6 +25,7 @@ public final class ContractService {
     private final GameRepository gameRepository;
     private final JWTService jwtService;
     private final ContractMapper contractMapper;
+    private final GameService gameService;
 
     public List<Contract> getAllContracts() {
         Provider currentProvider = jwtService.getCurrentProvider();
@@ -49,9 +50,7 @@ public final class ContractService {
         Contract contract = contractMapper.toEntity(contractDto);
         contract.setPublisher((Publisher) currentProvider);
 
-        Game game = gameRepository
-                .findById(gameId)
-                .orElseThrow(() -> new ValidationException(String.format("Game not found at id %s", gameId)));
+        Game game = gameService.getGame(gameId);
         if (game.getStatus() == Game.Status.PUBLISHED || game.getStatus() == Game.Status.DELISTED) {
             throw new ValidationException(String.format("Game at id %s already published", gameId));
         }
@@ -91,7 +90,7 @@ public final class ContractService {
 
         Contract contract = contractRepository.getContractByPublisherIdAndGameId(currentProvider.getId(), gameId);
         if (contract == null) {
-            throw new NotFoundException(String.format("contract not found with game %s", gameId));
+            throw new NotFoundException(String.format("Contract not found with game %s", gameId));
         }
         if (contract.getStatus() == Contract.Status.ACCEPTED) {
             throw new ForbiddenException("Cannot delete accepted contract");

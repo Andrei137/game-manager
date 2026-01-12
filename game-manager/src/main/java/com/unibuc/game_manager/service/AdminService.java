@@ -31,7 +31,7 @@ public final class AdminService {
     ) {
         P entity = repository
                 .findById(id)
-                .orElseThrow(() -> new NotFoundException("Entity with id " + id + " not found"));
+                .orElseThrow(() -> new NotFoundException("Provider with id " + id + " not found"));
         EnumUtils.updateStatus(
                 status,
                 entity,

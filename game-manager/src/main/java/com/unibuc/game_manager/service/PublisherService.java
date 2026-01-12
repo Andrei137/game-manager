@@ -27,11 +27,6 @@ public final class PublisherService extends ProviderService<Publisher, Publisher
     }
 
     @Override
-    public Class<Publisher> getProviderClass() {
-        return Publisher.class;
-    }
-
-    @Override
     protected String getEntityName() {
         return "publisher";
     }
@@ -51,10 +46,6 @@ public final class PublisherService extends ProviderService<Publisher, Publisher
                 .filter(g -> statusObj == null || g.getStatus().equals(statusObj))
                 .filter(g -> g.getTitle().toLowerCase().contains(normalizedTitle))
                 .toList();
-    }
-
-    public List<Game> getAllGamesByCurrentPublisher(String status, String title) {
-        return getAllGamesByPublisherId(getCurrentUser().getId(), status, title);
     }
 
 }

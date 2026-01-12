@@ -4,7 +4,7 @@ import com.unibuc.game_manager.exception.ValidationException;
 
 import java.util.Arrays;
 
-public class EnumUtils {
+public final class EnumUtils {
 
     public static <E extends Enum<E>> E fromString(Class<E> enumClass, String value) {
         if (value == null || value.isBlank()) return null;

@@ -1,6 +1,7 @@
 package com.unibuc.game_manager.dto;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.unibuc.game_manager.model.Provider;
 import com.unibuc.game_manager.utils.ViewUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,5 +28,8 @@ public final class ProviderResponseDto {
 
     @JsonView(ViewUtils.Admin.class)
     private String type;
+
+    @JsonView(ViewUtils.Admin.class)
+    private Provider.Status status;
 
 }

@@ -1,7 +1,10 @@
 package com.unibuc.game_manager.dto;
 
 import jakarta.validation.constraints.Pattern;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @Data
@@ -13,7 +16,7 @@ public abstract class ProviderCreateDto extends UserDto {
 
     @Pattern(
             regexp = "^(https?://)?([\\w-]+\\.)+[\\w-]{2,}(/\\S*)?$",
-            message = "Website must be a valid URL"
+            message = "website must be a valid URL"
     )
     private String website;
 

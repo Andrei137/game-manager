@@ -29,16 +29,16 @@ public abstract class Provider extends User implements EnumUtils.HasStatus<Provi
 
     public enum Status implements EnumUtils.TransitionAware<Status> {
         PENDING,
-        APPROVED,
+        ACCEPTED,
         REJECTED,
         BANNED;
 
         @Override
         public boolean canTransitionFrom(Status from) {
             return switch (from) {
-                case PENDING -> this == APPROVED || this == REJECTED;
-                case BANNED -> this == APPROVED;
-                case Status.APPROVED -> this == BANNED;
+                case PENDING -> this == ACCEPTED || this == REJECTED;
+                case BANNED -> this == ACCEPTED;
+                case ACCEPTED -> this == BANNED;
                 default -> false;
             };
         }

@@ -58,7 +58,7 @@ public class Contract implements EnumUtils.HasStatus<Contract.Status> {
     @ManyToOne
     @MapsId("publisherId")
     @JoinColumn(name = "publisher_id", nullable = false)
-    @JsonIgnore
+    @JsonView(ViewUtils.Provider.class)
     private Publisher publisher;
 
     @ManyToOne

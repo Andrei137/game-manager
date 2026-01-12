@@ -24,11 +24,6 @@ public final class DeveloperService extends ProviderService<Developer, Developer
     }
 
     @Override
-    public Class<Developer> getProviderClass() {
-        return Developer.class;
-    }
-
-    @Override
     protected String getEntityName() {
         return "developer";
     }

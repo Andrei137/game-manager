@@ -3,9 +3,8 @@ package com.unibuc.game_manager.mapper;
 import com.unibuc.game_manager.dto.ProviderCreateDto;
 import com.unibuc.game_manager.dto.ProviderResponseDto;
 import com.unibuc.game_manager.model.Provider;
+import com.unibuc.game_manager.utils.MapperUtils;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
 
 @Component
 public abstract class ProviderMapper<U extends Provider, D extends ProviderCreateDto> extends UserMapper<U, D> {
@@ -13,7 +12,7 @@ public abstract class ProviderMapper<U extends Provider, D extends ProviderCreat
     @Override
     public void updateEntityFromDto(D dto, U entity) {
         super.updateEntityFromDto(dto, entity);
-        Optional.ofNullable(dto.getWebsite()).ifPresent(entity::setWebsite);
+        MapperUtils.setIfPresent(dto.getWebsite(), entity::setWebsite);
     }
 
     public ProviderResponseDto toProviderResponseDto(Provider entity, String type) {
@@ -22,6 +21,7 @@ public abstract class ProviderMapper<U extends Provider, D extends ProviderCreat
                 .username(entity.getUsername())
                 .email(entity.getEmail())
                 .website(entity.getWebsite())
+                .status(entity.getStatus())
                 .type(type)
                 .build();
     }
