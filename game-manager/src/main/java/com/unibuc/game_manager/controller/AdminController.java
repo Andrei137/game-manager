@@ -2,16 +2,23 @@ package com.unibuc.game_manager.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.unibuc.game_manager.annotation.RequireAdmin;
+import com.unibuc.game_manager.dto.ProviderResponseDto;
 import com.unibuc.game_manager.dto.ProviderUpdateDto;
-import com.unibuc.game_manager.model.Developer;
-import com.unibuc.game_manager.model.Publisher;
+import com.unibuc.game_manager.model.Provider;
 import com.unibuc.game_manager.service.AdminService;
 import com.unibuc.game_manager.utils.ResponseUtils;
 import com.unibuc.game_manager.utils.ViewUtils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -22,47 +29,26 @@ public class AdminController {
 
     private final AdminService adminService;
 
-    @GetMapping("/developers")
+    @GetMapping("/providers")
     @JsonView(ViewUtils.Admin.class)
     @RequireAdmin
     @ResponseBody
-    public ResponseEntity<List<Developer>> getDevelopers(
+    public ResponseEntity<List<ProviderResponseDto>> getPublishers(
             @RequestParam(required = false) String status,
             @RequestParam(required = false) String name
     ) {
-        return ResponseUtils.ok(adminService.getDevelopers(status, name));
+        return ResponseUtils.ok(adminService.getProviders(status, name));
     }
-    @PutMapping("/developers/{id}")
+
+    @PutMapping("/providers/{id}")
     @JsonView(ViewUtils.Admin.class)
     @RequireAdmin
     @ResponseBody
-    public ResponseEntity<Developer> changeStatusDevelopers(
+    public ResponseEntity<Provider> changeStatusPublisher(
             @PathVariable Integer id,
             @RequestBody @Valid ProviderUpdateDto providerUpdateDto
     ) {
-        return ResponseUtils.ok(adminService.changeDeveloperStatus(id, providerUpdateDto.getStatus()));
-    }
-
-    @GetMapping("/publishers")
-    @JsonView(ViewUtils.Admin.class)
-    @RequireAdmin
-    @ResponseBody
-    public ResponseEntity<List<Publisher>> getPublishers(
-            @RequestParam(required = false) String status,
-            @RequestParam(required = false) String name
-    ) {
-        return ResponseUtils.ok(adminService.getPublishers(status, name));
-    }
-
-    @PutMapping("/publishers/{id}")
-    @JsonView(ViewUtils.Admin.class)
-    @RequireAdmin
-    @ResponseBody
-    public ResponseEntity<Publisher> changeStatusPublisher(
-            @PathVariable Integer id,
-            @RequestBody @Valid ProviderUpdateDto providerUpdateDto
-    ) {
-        return ResponseUtils.ok(adminService.changePublisherStatus(id, providerUpdateDto.getStatus()));
+        return ResponseUtils.ok(adminService.changeProviderStatus(id, providerUpdateDto.getStatus()));
     }
 
 }

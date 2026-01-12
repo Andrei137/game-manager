@@ -3,10 +3,10 @@ meta {
   seq: 1
 }
 
-auth {
-  mode: inherit
+headers {
+  Authorization: Bearer {{validAdminJWT}}
 }
 
-vars:pre-request {
-  endpoint: admin
+auth {
+  mode: inherit
 }

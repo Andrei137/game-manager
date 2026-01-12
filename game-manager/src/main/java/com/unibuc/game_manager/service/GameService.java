@@ -20,13 +20,13 @@ import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
-public class GameService {
+public final class GameService {
 
     private final GameRepository gameRepository;
     private final JWTService jwtService;
     private final GameMapper gameMapper;
 
-    public final Provider getCurrentProvider() {
+    public Provider getCurrentProvider() {
         if (jwtService.getUser() instanceof Provider provider) return provider;
         return null;
     }

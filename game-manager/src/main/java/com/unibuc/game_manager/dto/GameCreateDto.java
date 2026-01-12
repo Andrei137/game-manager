@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GameCreateDto {
+public final class GameCreateDto {
 
     @NotBlank(message = "title is required and cannot be blank", groups = ValidationUtils.Create.class)
     private String title;

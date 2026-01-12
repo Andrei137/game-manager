@@ -7,9 +7,11 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import tools.jackson.databind.exc.InvalidFormatException;
 
 import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestControllerAdvice
 public final class GlobalExceptionHandler {
@@ -48,6 +50,13 @@ public final class GlobalExceptionHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<?> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+        if (ex.getCause() instanceof InvalidFormatException invalidFormatEx) {
+            List<String> errorsList = new ArrayList<>();
+            invalidFormatEx.getPath().forEach(ref -> {
+                errorsList.add("Invalid date value. Please use the correct format (yyyy-mm-dd)");
+            });
+            return ResponseUtils.badRequest(errorsList);
+        }
         String message = ex.getMessage();
         if (message.contains("Required request body is missing")) {
             return ResponseUtils.badRequest("Request body is missing");

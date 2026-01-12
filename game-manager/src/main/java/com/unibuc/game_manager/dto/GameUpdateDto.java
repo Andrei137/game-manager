@@ -10,10 +10,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GameUpdateDto {
+public final class GameUpdateDto {
 
-    @Min(value = 0, message = "Discount percentage must be at least 0")
-    @Max(value = 100, message = "Discount percentage cannot be more than 100")
+    @Min(value = 0, message = "discountPercentage must be at least 0")
+    @Max(value = 100, message = "siscountPercentage cannot be more than 100")
     private Integer discountPercentage;
 
     @Pattern(

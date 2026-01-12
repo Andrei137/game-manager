@@ -5,9 +5,15 @@ meta {
 }
 
 put {
-  url: {{url}}/{{endpoint}}/1
-  body: none
+  url: {{url}}/{{endpoint}}/3
+  body: json
   auth: inherit
+}
+
+body:json {
+  {
+    "status": "published"
+  }
 }
 
 settings {

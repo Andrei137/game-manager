@@ -1,13 +1,13 @@
 meta {
-  name: Update Me
+  name: Issue
   type: http
-  seq: 4
+  seq: 2
 }
 
-put {
-  url: {{url}}/publishers
+post {
+  url: {{url}}/contracts
   body: json
-  auth: none
+  auth: inherit
 }
 
 headers {
@@ -16,7 +16,8 @@ headers {
 
 body:json {
   {
-    
+    "partnerId": 1,
+    "gameId": 2
   }
 }
 

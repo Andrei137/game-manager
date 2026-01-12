@@ -1,10 +1,11 @@
 package com.unibuc.game_manager.service;
 
+import com.unibuc.game_manager.dto.ProviderResponseDto;
 import com.unibuc.game_manager.exception.NotFoundException;
 import com.unibuc.game_manager.exception.ValidationException;
-import com.unibuc.game_manager.model.Developer;
+import com.unibuc.game_manager.mapper.DeveloperMapper;
+import com.unibuc.game_manager.mapper.PublisherMapper;
 import com.unibuc.game_manager.model.Provider;
-import com.unibuc.game_manager.model.Publisher;
 import com.unibuc.game_manager.repository.DeveloperRepository;
 import com.unibuc.game_manager.repository.ProviderRepository;
 import com.unibuc.game_manager.repository.PublisherRepository;
@@ -13,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -21,8 +22,10 @@ public final class AdminService {
 
     private final DeveloperRepository developerRepository;
     private final PublisherRepository publisherRepository;
+    private final DeveloperMapper developerMapper;
+    private final PublisherMapper publisherMapper;
 
-    private <P extends Provider> P changeProviderStatus(
+    private <P extends Provider> P _changeProviderStatus(
             ProviderRepository<P> repository,
             Integer id,
             String status
@@ -61,19 +64,26 @@ public final class AdminService {
                 .toList();
     }
 
-    public Developer changeDeveloperStatus(Integer id, String status) {
-        return changeProviderStatus(developerRepository, id, status);
+    public Provider changeProviderStatus(Integer id, String status) {
+        return developerRepository.existsById(id)
+                ? _changeProviderStatus(developerRepository, id, status)
+                : _changeProviderStatus(publisherRepository, id, status);
     }
 
-    public List<Developer> getDevelopers(String status, String name) {
-        return getProviders(developerRepository, status, name);
+    public List<ProviderResponseDto> getProviders(String status, String name) {
+        List<ProviderResponseDto> developers = getProviders(developerRepository, status, name)
+                .stream()
+                .map(dev -> developerMapper.toProviderResponseDto(dev, "developer"))
+                .toList();
+
+        List<ProviderResponseDto> publishers = getProviders(publisherRepository, status, name)
+                .stream()
+                .map(pub -> publisherMapper.toProviderResponseDto(pub, "publisher"))
+                .toList();
+
+        return Stream
+                .concat(developers.stream(), publishers.stream())
+                .toList();
     }
 
-    public Publisher changePublisherStatus(Integer id, String status) {
-        return changeProviderStatus(publisherRepository, id, status);
-    }
-
-    public List<Publisher> getPublishers(String status, String name) {
-        return getProviders(publisherRepository, status, name);
-    }
 }

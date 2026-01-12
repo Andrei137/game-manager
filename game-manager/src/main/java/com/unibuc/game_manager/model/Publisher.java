@@ -13,10 +13,14 @@ import java.util.List;
 @SuperBuilder
 @Entity
 @Table(name = "publisher")
-public final class Publisher extends Provider {
+public class Publisher extends Provider {
 
     @OneToMany(mappedBy = "publisher")
     @JsonIgnore
     private List<Game> publishedGames;
+
+    @OneToMany(mappedBy = "publisher")
+    @JsonIgnore
+    private List<Contract> contracts;
 
 }

@@ -1,5 +1,6 @@
 package com.unibuc.game_manager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.unibuc.game_manager.utils.ViewUtils;
 import jakarta.persistence.*;
@@ -7,6 +8,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Data
 @AllArgsConstructor

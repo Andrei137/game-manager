@@ -4,19 +4,22 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.unibuc.game_manager.utils.ViewUtils;
 import jakarta.persistence.*;
-import lombok.*;
-import lombok.experimental.SuperBuilder;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@SuperBuilder
+@Builder
 @Entity
 @Table(name = "game")
-@Inheritance(strategy = InheritanceType.JOINED)
 public class Game {
 
     public enum Status {
@@ -58,19 +61,24 @@ public class Game {
     @Builder.Default
     private LocalDate releaseDate = LocalDate.now();
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     @JsonView(ViewUtils.Provider.class)
     @Builder.Default
     private Status status = Status.ANNOUNCED;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "developer_id", nullable = false)
     @JsonIgnore
     private Developer developer;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "publisher_id")
     @JsonIgnore
     private Provider publisher;
+
+    @OneToMany(mappedBy = "game")
+    @JsonIgnore
+    private List<Contract> contracts;
 
 }

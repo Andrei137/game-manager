@@ -1,8 +1,16 @@
 package com.unibuc.game_manager.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
@@ -14,7 +22,7 @@ import java.util.List;
 @SuperBuilder
 @Entity
 @Table(name = "customer")
-public final class Customer extends User {
+public class Customer extends User {
 
     @Column(nullable = false)
     private String lastName;

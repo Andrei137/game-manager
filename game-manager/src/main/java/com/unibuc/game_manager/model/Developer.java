@@ -1,8 +1,13 @@
 package com.unibuc.game_manager.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
@@ -14,10 +19,14 @@ import java.util.List;
 @SuperBuilder
 @Entity
 @Table(name = "developer")
-public final class Developer extends Provider {
+public class Developer extends Provider {
 
-    @OneToMany(mappedBy = "developer", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "developer")
     @JsonIgnore
     private List<Game> developedGames;
+
+    @OneToMany(mappedBy = "developer")
+    @JsonIgnore
+    private List<Contract> contracts;
 
 }
